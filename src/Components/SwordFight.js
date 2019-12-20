@@ -177,6 +177,8 @@ class SwordFight extends Component{
             <br/>
             
             {this.state.timer}
+
+            <a href="https://www.kongregate.com/games/tovrick/sword-fight">Play Sword Fight on Kongregate</a>
         </div>
         );
     }
