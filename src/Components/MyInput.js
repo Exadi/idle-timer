@@ -1,13 +1,13 @@
 import React from 'react';
-class InputWithLabel extends React.Component{
+class InputWithLabel extends React.PureComponent{
     render(){
       let label = <p></p>;
       if(this.props.label){
-        label = <label for={this.props.id} >{this.props.label}</label>;
+        label = <label htmlFor={this.props.id} >{this.props.label}</label>;
       }
       return (<span>
               {label}
-              <input type={this.props.type} value={this.props.value} onChange={this.props.onChange} />
+              <input id={this.props.id} type={this.props.type} value={this.props.value} onChange={this.props.onChange} />
               </span>);
     }
 }
