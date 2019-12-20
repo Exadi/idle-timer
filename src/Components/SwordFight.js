@@ -102,7 +102,7 @@ class SwordFight extends Component{
             <MyInput id="master_level_3" type="text" label="Level: " value={this.state.masterLevel3} onChange={this.handleMasterLevel3Change} />
             <MyInput id="master_points_3" type="text" label="Unspent Points: " value={this.state.masterPoints3} onChange={this.handleMasterPoints3Change} />
 
-            <h2>Rival Master</h2>
+            <h2>Rival Master.</h2>
             <MyInput id="rival_master_level" type="text" label="Level: " value={this.state.rivalMasterLevel} onChange={this.handleRivalMasterLevelChange} />
             <MyInput id="rival_master_target_level" type="text" label="Target Level: " value={this.state.rivalMasterTargetLevel} onChange={this.handleRivalMasterTargetLevelChange} />
             <MyInput id="rival_master_greater_ambition" type="checkbox" label="Co-Founder with Greater Ambition: " value={this.state.rivalMasterGreaterAmbition} onChange={this.handleRivalMasterGreaterAmbitionChange} />
