@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "b121f8b840859b05d02696043c39c43c",
+    "revision": "7cc0434e91420fa0698e9d1f9a249712",
     "url": "/idle-timer/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/idle-timer/static/css/2.17e5ed98.chunk.css"
   },
   {
-    "revision": "ccb4f2775e1f8206707a",
+    "revision": "e8546a03af9cf3ed998d",
     "url": "/idle-timer/static/css/main.d1b05096.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/idle-timer/static/js/2.da1615ae.chunk.js.LICENSE"
   },
   {
-    "revision": "ccb4f2775e1f8206707a",
-    "url": "/idle-timer/static/js/main.7649064a.chunk.js"
+    "revision": "e8546a03af9cf3ed998d",
+    "url": "/idle-timer/static/js/main.8a0b0007.chunk.js"
   },
   {
     "revision": "c3371e93809b882d2a0c",

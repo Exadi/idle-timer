@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/idle-timer/static/css/main.d1b05096.chunk.css",
-    "main.js": "/idle-timer/static/js/main.7649064a.chunk.js",
-    "main.js.map": "/idle-timer/static/js/main.7649064a.chunk.js.map",
+    "main.js": "/idle-timer/static/js/main.8a0b0007.chunk.js",
+    "main.js.map": "/idle-timer/static/js/main.8a0b0007.chunk.js.map",
     "runtime-main.js": "/idle-timer/static/js/runtime-main.075bef36.js",
     "runtime-main.js.map": "/idle-timer/static/js/runtime-main.075bef36.js.map",
     "static/css/2.17e5ed98.chunk.css": "/idle-timer/static/css/2.17e5ed98.chunk.css",
     "static/js/2.da1615ae.chunk.js": "/idle-timer/static/js/2.da1615ae.chunk.js",
     "static/js/2.da1615ae.chunk.js.map": "/idle-timer/static/js/2.da1615ae.chunk.js.map",
     "index.html": "/idle-timer/index.html",
-    "precache-manifest.9f878a21cf431a8d384ca021e690acb9.js": "/idle-timer/precache-manifest.9f878a21cf431a8d384ca021e690acb9.js",
+    "precache-manifest.7f1a1c26f978f9eb9aafc837eb9afab7.js": "/idle-timer/precache-manifest.7f1a1c26f978f9eb9aafc837eb9afab7.js",
     "service-worker.js": "/idle-timer/service-worker.js",
     "static/css/2.17e5ed98.chunk.css.map": "/idle-timer/static/css/2.17e5ed98.chunk.css.map",
     "static/css/main.d1b05096.chunk.css.map": "/idle-timer/static/css/main.d1b05096.chunk.css.map",
@@ -21,6 +21,6 @@
     "static/css/2.17e5ed98.chunk.css",
     "static/js/2.da1615ae.chunk.js",
     "static/css/main.d1b05096.chunk.css",
-    "static/js/main.7649064a.chunk.js"
+    "static/js/main.8a0b0007.chunk.js"
   ]
 }
