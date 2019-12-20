@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import MyInput from './MyInput';
 import Button from 'react-bootstrap/Button';
 
+class Master {
+
+}
+
 class SwordFight extends Component{
     constructor(props){
         super(props);
@@ -86,6 +90,11 @@ class SwordFight extends Component{
             rivalMasterGreaterAmbition
         })
     }
+
+    calculate(){
+        console.log("Hello!");
+    }
+
     render(){
         return (
         <div id="sword-fight-calculator">
@@ -108,7 +117,7 @@ class SwordFight extends Component{
             <MyInput id="rival_master_greater_ambition" type="checkbox" label="Co-Founder with Greater Ambition: " value={this.state.rivalMasterGreaterAmbition} onChange={this.handleRivalMasterGreaterAmbitionChange} />
 
             <br/>
-            <Button>Calculate</Button><Button variant="secondary">Set Timer</Button>
+            <Button onClick={this.calculate}>Calculate</Button><Button variant="secondary">Set Timer</Button>
         </div>
         );
     }
