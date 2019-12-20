@@ -11,7 +11,10 @@ class SwordFight extends Component{
             masterLevel3:0,
             masterPoints1:0,
             masterPoints2:0,
-            masterPoints3:0
+            masterPoints3:0,
+            rivalMasterLevel:0,
+            rivalMasterTargetLevel:0,
+            rivalMasterGreaterAmbition:false
         }
         this.handleMasterLevel1Change = this.handleMasterLevel1Change.bind(this);
         this.handleMasterLevel2Change = this.handleMasterLevel2Change.bind(this);
@@ -19,6 +22,10 @@ class SwordFight extends Component{
         this.handleMasterPoints1Change = this.handleMasterPoints1Change.bind(this);
         this.handleMasterPoints2Change = this.handleMasterPoints2Change.bind(this);
         this.handleMasterPoints3Change = this.handleMasterPoints3Change.bind(this);
+        
+        this.handleRivalMasterLevelChange = this.handleRivalMasterLevelChange.bind(this);
+        this.handleRivalMasterTargetLevelChange = this.handleRivalMasterTargetLevelChange.bind(this);
+        this.handleRivalMasterGreaterAmbitionChange = this.handleRivalMasterGreaterAmbitionChange.bind(this);
     }
 
     handleMasterLevel1Change(event){
@@ -58,6 +65,27 @@ class SwordFight extends Component{
             masterPoints3
         })
     }
+
+    handleRivalMasterLevelChange(event){
+        let rivalMasterLevel = parseInt(event.target.value);
+        this.setState({
+            rivalMasterLevel
+        })
+    }
+
+    handleRivalMasterTargetLevelChange(event){
+        let rivalMasterTargetLevel = parseInt(event.target.value);
+        this.setState({
+            rivalMasterTargetLevel
+        })
+    }
+
+    handleRivalMasterGreaterAmbitionChange(event){
+        let rivalMasterGreaterAmbition = parseInt(event.target.value);
+        this.setState({
+            rivalMasterGreaterAmbition
+        })
+    }
     render(){
         return (
         <div id="sword-fight-calculator">
@@ -75,7 +103,10 @@ class SwordFight extends Component{
             <MyInput id="master_points_3" type="text" label="Unspent Points: " value={this.state.masterPoints3} onChange={this.handleMasterPoints3Change} />
 
             <h2>Rival Master</h2>
-            
+            <MyInput id="rival_master_level" type="text" label="Level: " value={this.state.rivalMasterLevel} onChange={this.handleRivalMasterLevelChange} />
+            <MyInput id="rival_master_target_level" type="text" label="Target Level: " value={this.state.rivalMasterTargetLevel} onChange={this.handleRivalMasterTargetLevelChange} />
+            <MyInput id="rival_master_greater_ambition" type="checkbox" label="Co-Founder with Greater Ambition: " value={this.state.rivalMasterGreaterAmbition} onChange={this.handleRivalMasterGreaterAmbitionChange} />
+
             <br/>
             <Button>Calculate</Button><Button variant="secondary">Set Timer</Button>
         </div>
