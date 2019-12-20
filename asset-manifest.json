@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/idle-timer/static/css/main.d1b05096.chunk.css",
+    "main.js": "/idle-timer/static/js/main.7649064a.chunk.js",
+    "main.js.map": "/idle-timer/static/js/main.7649064a.chunk.js.map",
+    "runtime-main.js": "/idle-timer/static/js/runtime-main.075bef36.js",
+    "runtime-main.js.map": "/idle-timer/static/js/runtime-main.075bef36.js.map",
+    "static/css/2.17e5ed98.chunk.css": "/idle-timer/static/css/2.17e5ed98.chunk.css",
+    "static/js/2.da1615ae.chunk.js": "/idle-timer/static/js/2.da1615ae.chunk.js",
+    "static/js/2.da1615ae.chunk.js.map": "/idle-timer/static/js/2.da1615ae.chunk.js.map",
+    "index.html": "/idle-timer/index.html",
+    "precache-manifest.9f878a21cf431a8d384ca021e690acb9.js": "/idle-timer/precache-manifest.9f878a21cf431a8d384ca021e690acb9.js",
+    "service-worker.js": "/idle-timer/service-worker.js",
+    "static/css/2.17e5ed98.chunk.css.map": "/idle-timer/static/css/2.17e5ed98.chunk.css.map",
+    "static/css/main.d1b05096.chunk.css.map": "/idle-timer/static/css/main.d1b05096.chunk.css.map",
+    "static/js/2.da1615ae.chunk.js.LICENSE": "/idle-timer/static/js/2.da1615ae.chunk.js.LICENSE",
+    "static/media/bell_01.ogg": "/idle-timer/static/media/bell_01.b81c7b5a.ogg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.075bef36.js",
+    "static/css/2.17e5ed98.chunk.css",
+    "static/js/2.da1615ae.chunk.js",
+    "static/css/main.d1b05096.chunk.css",
+    "static/js/main.7649064a.chunk.js"
+  ]
+}
