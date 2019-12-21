@@ -46,7 +46,7 @@ class Timer extends Component{
             seconds = 0.0;
             clearInterval(this.intervalHandle);
             if(this.state.playSound) this.audio.play();
-            if(this.state.sendNotification) this.props.onComplete();
+            if(this.state.sendNotification) this.props.notification();
         }
     }
     start(){

@@ -238,7 +238,7 @@ class SwordFight extends Component{
                 swRegistration={this.props.swRegistration}
             />
             <br/>
-            <Timer visible={this.state.timerVisible} seconds={this.state.timerSeconds} sound={bell_01} onComplete={this.sendNotification} />
+            <Timer visible={this.state.timerVisible} seconds={this.state.timerSeconds} sound={bell_01} notification={this.sendNotification} />
             <br/>
             <a href="https://www.kongregate.com/games/tovrick/sword-fight">Play Sword Fight on Kongregate</a>
         </div>
