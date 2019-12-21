@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button'
+import MyInput from './MyInput';
 import bell_01 from '../assets/bell_01.ogg'
 
 class Timer extends Component{
@@ -7,13 +8,32 @@ class Timer extends Component{
         super(props);
         this.state = {
             seconds: this.props.seconds,
-            isRunning: false
+            isRunning: false,
+            playSound:true,
+            sendNotification:false
         }
         this.tick = this.tick.bind(this);
         this.start = this.start.bind(this);
         this.restart = this.restart.bind(this);
 
+        this.handlePlaySoundChange = this.handlePlaySoundChange.bind(this);
+        this.handleSendNotificationChange = this.handleSendNotificationChange.bind(this);
+
         this.audio = new Audio(this.props.sound)
+    }
+
+    handlePlaySoundChange(event){
+        let playSound = event.target.checked;
+        this.setState({
+            playSound
+        })
+    }
+
+    handleSendNotificationChange(event){
+        let sendNotification = event.target.checked;
+        this.setState({
+            sendNotification
+        })
     }
 
     tick(){
@@ -25,8 +45,8 @@ class Timer extends Component{
         if(seconds <= 0){
             seconds = 0.0;
             clearInterval(this.intervalHandle);
-            this.audio.play();
-            this.props.onComplete();
+            if(this.state.playSound) this.audio.play();
+            if(this.state.sendNotification) this.props.onComplete();
         }
     }
     start(){
@@ -63,8 +83,12 @@ class Timer extends Component{
         let hours = Math.floor(this.state.seconds / 3600);
         let minutes = Math.floor(this.state.seconds / 60) - (hours * 60);
         let seconds = this.state.seconds - (minutes * 60) - (hours * 3600)
-        return (<div className="timer">
+        return (<div className="timer" visible={this.props.visible}>
             <Button variant="secondary" onClick={this.state.isRunning ? this.restart : this.start}>{this.state.isRunning ? "Restart Timer" : "Start Timer"}</Button>{hours}:{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
+            <br/>
+            <MyInput type="checkbox" label="Play Sound: " checked={this.state.playSound} onChange={this.handlePlaySoundChange} ></MyInput>
+            <br/>
+            <MyInput type="checkbox" label="Send Notification: " checked={this.state.sendNotification} onChange={this.handleSendNotificationChange} ></MyInput>
         </div>)
     }
 }

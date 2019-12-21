@@ -7,7 +7,7 @@ class InputWithLabel extends React.PureComponent{
       }
       return (<span>
               {label}
-              <input id={this.props.id} type={this.props.type} value={this.props.value} onChange={this.props.onChange} />
+              <input id={this.props.id} type={this.props.type} value={this.props.value} onChange={this.props.onChange} checked={this.props.checked ? "checked": ""} />
               </span>);
     }
 }
