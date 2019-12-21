@@ -3,6 +3,9 @@ import MyInput from './MyInput';
 import Button from 'react-bootstrap/Button';
 import Timer from './Timer';
 import bell_01 from '../assets/bell_01.ogg'
+import Notification from "react-web-notification"
+import notifIcon from '../assets/notif.png';
+
 
 class Master {
     constructor(level, unspentPoints){
@@ -25,7 +28,11 @@ class SwordFight extends Component{
             rivalMasterGreaterAmbition:false,
             inspiringLeaderLevel:0,
             greaterInspiringLeader:false,
-            timer:"Results should appear here"
+            timerVisible:false,
+            timerSeconds:0,
+            /*notification*/
+            ignore:true,
+            title:''
         }
         this.handleMasterLevelChange = this.handleMasterLevelChange.bind(this);
         this.handleMasterPointsChange = this.handleMasterPointsChange.bind(this);
@@ -38,6 +45,7 @@ class SwordFight extends Component{
         this.handleGreaterInspiringLeaderChange = this.handleGreaterInspiringLeaderChange.bind(this);
 
         this.calculate = this.calculate.bind(this);
+        this.sendNotification = this.sendNotification.bind(this);
     }
 
     handleMasterLevelChange(event) {
@@ -117,10 +125,7 @@ class SwordFight extends Component{
         
         //if master levels are too low to reach the target, return an error message
         if (rivalTargetLevel > Math.max(...effectiveLevels)){
-            result = "Rival will never reach target level!";
-            this.setState({
-                "timer": result
-            });
+            alert("Rival will never reach target level!");
             return;
         }
         let totalUnspentPoints = this.state.masters.map((item) => (this.capUnspent(item.unspentPoints))).reduce((a, b) => (a+b));
@@ -144,11 +149,59 @@ class SwordFight extends Component{
         }
 
         console.log("The total time is " + totalMinutes);
-        result = <Timer seconds={Math.round(totalMinutes * 60)} sound={bell_01} />
+        let timerVisible = true;
+        let timerSeconds = Math.round(totalMinutes * 60);
         this.setState({
-            "timer": result
+            timerVisible,
+            timerSeconds
         })
     }
+
+    handlePermissionGranted(){
+        console.log('Permission Granted');
+        this.setState({
+          ignore: false
+        });
+      }
+      handlePermissionDenied(){
+        console.log('Permission Denied');
+        this.setState({
+          ignore: true
+        });
+      }
+      handleNotSupported(){
+        console.log('Web Notification not Supported');
+        this.setState({
+          ignore: true
+        });
+      }
+      sendNotification() {
+
+        if(this.state.ignore) {
+          return;
+        }
+    
+        const now = Date.now();
+    
+        const title = 'Idle Timer';
+        const body = 'Rival Leveling Complete!';
+        const tag = now;
+        const icon = notifIcon;
+    
+        // Available options
+        // See https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
+        const options = {
+          tag: tag,
+          body: body,
+          icon: icon,
+          lang: 'en',
+          dir: 'ltr'
+        }
+        this.setState({
+          title: title,
+          options: options
+        });
+      }
 
     render(){
         return (
@@ -174,9 +227,18 @@ class SwordFight extends Component{
 
             <br/>
             <Button onClick={this.calculate}>Calculate</Button>
+            <Notification
+                ignore={this.state.ignore && this.state.title !== ''}
+                notSupported={this.handleNotSupported.bind(this)}
+                onPermissionGranted={this.handlePermissionGranted.bind(this)}
+                onPermissionDenied={this.handlePermissionDenied.bind(this)}
+                timeout={5000}
+                title={this.state.title}
+                options={this.state.options}
+                swRegistration={this.props.swRegistration}
+            />
             <br/>
-            
-            {this.state.timer}
+            <Timer visible={this.state.timerVisible} seconds={this.state.timerSeconds} sound={bell_01} onComplete={this.sendNotification} />
             <br/>
             <a href="https://www.kongregate.com/games/tovrick/sword-fight">Play Sword Fight on Kongregate</a>
         </div>

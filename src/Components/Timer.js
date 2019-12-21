@@ -11,6 +11,7 @@ class Timer extends Component{
         }
         this.tick = this.tick.bind(this);
         this.start = this.start.bind(this);
+        this.restart = this.restart.bind(this);
 
         this.audio = new Audio(this.props.sound)
     }
@@ -25,6 +26,7 @@ class Timer extends Component{
             seconds = 0.0;
             clearInterval(this.intervalHandle);
             this.audio.play();
+            this.props.onComplete();
         }
     }
     start(){
@@ -34,12 +36,35 @@ class Timer extends Component{
         })
     }
 
+    restart(){
+        clearInterval(this.intervalHandle);
+        this.setState({
+            seconds: this.props.seconds,
+            isRunning: false
+        })
+    }
+
+    componentDidUpdate(prevProps) {
+        // Typical usage (don't forget to compare props):
+        console.log("Timer update")
+        if (this.props.seconds !== prevProps.seconds) {
+            this.setState({
+                seconds: this.props.seconds,
+                isRunning: false
+            });
+            if(this.intervalHandle){
+                clearInterval(this.intervalHandle);
+            }
+        }
+    }
+
     render(){
+        if(!this.props.visible) return null;
         let hours = Math.floor(this.state.seconds / 3600);
         let minutes = Math.floor(this.state.seconds / 60) - (hours * 60);
         let seconds = this.state.seconds - (minutes * 60) - (hours * 3600)
         return (<div className="timer">
-            <Button variant="secondary" onClick={this.start} disabled={this.state.isRunning}>Set Timer</Button>{hours}:{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
+            <Button variant="secondary" onClick={this.state.isRunning ? this.restart : this.start}>{this.state.isRunning ? "Restart Timer" : "Start Timer"}</Button>{hours}:{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
         </div>)
     }
 }
