@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import MyInput from './MyInput';
-import Button from 'react-bootstrap/Button';
-import Timer from './Timer';
+import TextInput from "./FormControls/TextInput"
+import CheckboxInput from './FormControls/CheckboxInput';
+import Timer from './Timer/Timer';
 import bell_01 from '../assets/bell_01.ogg'
 import Notification from "react-web-notification"
 import notifIcon from '../assets/notif.png';
@@ -50,8 +50,7 @@ class SwordFight extends Component{
 
     handleMasterLevelChange(event) {
         let index = event.target.id.split("_")[2];
-        console.log(index, event)
-        let newLevel = parseInt(event.target.value);
+        let newLevel = parseInt(event.target.value) || 0;
         let master = {...this.state.masters[index]};
         let list = [ ...this.state.masters ];
         master.level = newLevel;
@@ -63,8 +62,7 @@ class SwordFight extends Component{
 
     handleMasterPointsChange(event) {
         let index = event.target.id.split("_")[2];
-        console.log(index, event)
-        let newPoints = parseInt(event.target.value);
+        let newPoints = parseInt(event.target.value) || 0;
         let master = {...this.state.masters[index]};
         let list = [ ...this.state.masters ];
         master.unspentPoints = newPoints;
@@ -75,14 +73,14 @@ class SwordFight extends Component{
     }
 
     handleRivalMasterLevelChange(event){
-        let rivalMasterLevel = parseInt(event.target.value);
+        let rivalMasterLevel = parseInt(event.target.value) || 0;
         this.setState({
             rivalMasterLevel
         })
     }
 
     handleRivalMasterTargetLevelChange(event){
-        let rivalMasterTargetLevel = parseInt(event.target.value);
+        let rivalMasterTargetLevel = parseInt(event.target.value) || 0;
         this.setState({
             rivalMasterTargetLevel
         })
@@ -96,13 +94,13 @@ class SwordFight extends Component{
     }
 
     handleInspiringLeaderLevelChange(event){
-        let inspiringLeaderLevel = parseInt(event.target.value);
+        let inspiringLeaderLevel = parseInt(event.target.value) || 0;
         this.setState({
             inspiringLeaderLevel
         })
     }
     handleGreaterInspiringLeaderChange(event){
-        let greaterInspiringLeader =event.target.checked;
+        let greaterInspiringLeader = event.target.checked;
         this.setState({
             greaterInspiringLeader
         })
@@ -115,7 +113,6 @@ class SwordFight extends Component{
         return Math.min(unspentPoints, cap);
     }
     calculate(){
-        let result = "";
         let rivalLevel = this.state.rivalMasterLevel;
         let rivalTargetLevel = this.state.rivalMasterTargetLevel;
         let greaterAmbition = this.state.rivalMasterGreaterAmbition;
@@ -206,41 +203,55 @@ class SwordFight extends Component{
     render(){
         return (
         <div id="sword-fight-calculator">
-            <h1>Rival Leveling Time</h1>
+            <h1 className="title is-1 has-text-centered">Rival Leveling Time</h1>
+            <div className="tile is-ancestor">
+                {this.state.masters.map((item, index) => (
+                    <div key={index} className="tile is-parent">
+                        <div className="tile is-child box">
+                            <h2 className="title is-3 has-text-centered">Master {index+1}</h2>
+                            <TextInput id={"master_level_" + index} label="Level: " value={item.level} onChange={this.handleMasterLevelChange} />
+                            <TextInput id={"master_points_" + index} label="Unspent Points: " value={item.unspentPoints} onChange={this.handleMasterPointsChange} help="Ignore if not using Inspiring Leader" />
+                        </div>
+                    </div>
+                ))}
+            </div>
 
-            {this.state.masters.map((item, index) => (
-                <div key={index}>
-                <h2>Master {index+1}</h2>
-                <MyInput id={"master_level_" + index} type="text" label="Level: " value={item.level} onChange={this.handleMasterLevelChange} />
-                <MyInput id={"master_points_" + index} type="text" label="Unspent Points: " value={item.unspentPoints} onChange={this.handleMasterPointsChange} />
+            <div className="tile is-ancestor">
+                <div className="tile is-parent">
+                    <div className="tile is-child box">
+                        <h2 className="title is-3 has-text-centered">Rival Master</h2>
+                        <TextInput id="rival_master_level" label="Level: " value={this.state.rivalMasterLevel} onChange={this.handleRivalMasterLevelChange} />
+                        <TextInput id="rival_master_target_level" label="Target Level: " value={this.state.rivalMasterTargetLevel} onChange={this.handleRivalMasterTargetLevelChange} />
+                        <CheckboxInput id="rival_master_greater_ambition" type="checkbox" label="Co-Founder with Greater Ambition" checked={this.state.rivalMasterGreaterAmbition} onChange={this.handleRivalMasterGreaterAmbitionChange} />
+                    </div>
                 </div>
-            ))}
-
-            <h2>Rival Master</h2>
-            <MyInput id="rival_master_level" type="text" label="Level: " value={this.state.rivalMasterLevel} onChange={this.handleRivalMasterLevelChange} />
-            <MyInput id="rival_master_target_level" type="text" label="Target Level: " value={this.state.rivalMasterTargetLevel} onChange={this.handleRivalMasterTargetLevelChange} />
-            <MyInput id="rival_master_greater_ambition" type="checkbox" label="Co-Founder with Greater Ambition: " checked={this.state.rivalMasterGreaterAmbition} onChange={this.handleRivalMasterGreaterAmbitionChange} />
-            <br/>
-            <h2>Inspiring Leader</h2>
-            <MyInput id="rival_master_level" type="text" label="Level: " value={this.state.inspiringLeaderLevel} onChange={this.handleInspiringLeaderLevelChange} />
-            <MyInput id="rival_master_level" type="checkbox" label="Greater: " checked={this.state.greaterInspiringLeader} onChange={this.handleGreaterInspiringLeaderChange} />
-
-            <br/>
-            <Button onClick={this.calculate}>Calculate</Button>
-            <Notification
-                ignore={this.state.ignore && this.state.title !== ''}
-                notSupported={this.handleNotSupported.bind(this)}
-                onPermissionGranted={this.handlePermissionGranted.bind(this)}
-                onPermissionDenied={this.handlePermissionDenied.bind(this)}
-                timeout={5000}
-                title={this.state.title}
-                options={this.state.options}
-                swRegistration={this.props.swRegistration}
-            />
-            <br/>
-            <Timer visible={this.state.timerVisible} seconds={this.state.timerSeconds} sound={bell_01} notification={this.sendNotification} />
-            <br/>
-            <a href="https://www.kongregate.com/games/tovrick/sword-fight">Play Sword Fight on Kongregate</a>
+                <div className="tile is-parent">
+                    <div className="tile is-child box">
+                        <h2 className="title is-3 has-text-centered">Inspiring Leader</h2>
+                        <h6 className="subtitle is-6 has-text-centered">(Xander's 4th Skill)</h6>
+                        <TextInput id="inspiring_leader_level" label="Level: " value={this.state.inspiringLeaderLevel} onChange={this.handleInspiringLeaderLevelChange} />
+                        <CheckboxInput id="inspiring_leader_greater" label="Greater Inspiring Leader unlocked" checked={this.state.greaterInspiringLeader} onChange={this.handleGreaterInspiringLeaderChange} />
+                    </div>
+                </div>
+            </div>
+            <div className="has-text-centered">
+                <input type="button" className="button is-primary" onClick={this.calculate} value="Calculate" ></input>
+                <Notification
+                    ignore={this.state.ignore && this.state.title !== ''}
+                    notSupported={this.handleNotSupported.bind(this)}
+                    onPermissionGranted={this.handlePermissionGranted.bind(this)}
+                    onPermissionDenied={this.handlePermissionDenied.bind(this)}
+                    timeout={5000}
+                    title={this.state.title}
+                    options={this.state.options}
+                    swRegistration={this.props.swRegistration}
+                />
+                <br/>
+                <Timer visible={this.state.timerVisible} seconds={this.state.timerSeconds} sound={bell_01} notification={this.sendNotification} />
+                <br/>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.kongregate.com/games/tovrick/sword-fight">Play Sword Fight on Kongregate</a>
+            </div>
+            
         </div>
         );
     }

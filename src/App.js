@@ -1,8 +1,7 @@
 import React from 'react';
 //import logo from './logo.svg';
 import SwordFight from './Components/SwordFight'
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
+import './App.scss';
 
 function App() {
   return (
@@ -10,7 +9,12 @@ function App() {
       <header className="App-headers">
         {/*<img src={logo} className="App-logo" alt="logo" />*/}
       </header>
+
+      <section className="section">
+        <div className="container is-fluid">
           <SwordFight/>
+        </div>
+      </section>
     </div>
   );
 }

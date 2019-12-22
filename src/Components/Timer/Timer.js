@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import Button from 'react-bootstrap/Button'
-import MyInput from './MyInput';
-import bell_01 from '../assets/bell_01.ogg'
+import CheckboxInput from '../FormControls/CheckboxInput';
+import bell_01 from '../../assets/bell_01.ogg'
 
 class Timer extends Component{
     constructor(props){
@@ -38,9 +37,6 @@ class Timer extends Component{
 
     tick(){
         let seconds = this.state.seconds - 1;
-        this.setState({
-            seconds
-        });
 
         if(seconds <= 0){
             seconds = 0.0;
@@ -48,6 +44,9 @@ class Timer extends Component{
             if(this.state.playSound) this.audio.play();
             if(this.state.sendNotification) this.props.notification();
         }
+        this.setState({
+            seconds
+        });
     }
     start(){
         this.intervalHandle = setInterval(this.tick, 1000);
@@ -83,12 +82,21 @@ class Timer extends Component{
         let hours = Math.floor(this.state.seconds / 3600);
         let minutes = Math.floor(this.state.seconds / 60) - (hours * 60);
         let seconds = this.state.seconds - (minutes * 60) - (hours * 3600)
-        return (<div className="timer" visible={this.props.visible}>
-            <Button variant="secondary" onClick={this.state.isRunning ? this.restart : this.start}>{this.state.isRunning ? "Restart Timer" : "Start Timer"}</Button>{hours}:{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
-            <br/>
-            <MyInput type="checkbox" label="Play Sound: " checked={this.state.playSound} onChange={this.handlePlaySoundChange} ></MyInput>
-            <br/>
-            <MyInput type="checkbox" label="Send Notification: " checked={this.state.sendNotification} onChange={this.handleSendNotificationChange} ></MyInput>
+        return (<div className="box has-text-centered" visible={this.props.visible ? "true" : "false"}>
+            <h2 className="subtitle is-3">Timer</h2>
+            
+            <div className="is-size-3">
+                {hours}:{minutes < 10 ? "0" + minutes : minutes}:{seconds < 10 ? "0" + seconds : seconds}
+            </div>
+            <input type="button" className="button is-primary is-outlined" onClick={this.state.isRunning ? this.restart : this.start} value={this.state.isRunning ? "Reset" : "Start"} ></input>
+            <div className="columns">
+                <div className="column">
+                    <CheckboxInput label="Play Sound" checked={this.state.playSound} onChange={this.handlePlaySoundChange} />
+                </div>
+                <div className="column">
+                    <CheckboxInput label="Send Notification" checked={this.state.sendNotification} onChange={this.handleSendNotificationChange} />
+                </div>
+            </div>
         </div>)
     }
 }
