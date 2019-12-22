@@ -50,7 +50,7 @@ class SwordFight extends Component{
 
     handleMasterLevelChange(event) {
         let index = event.target.id.split("_")[2];
-        let newLevel = parseInt(event.target.value) || 0;
+        let newLevel = parseInt(event.target.value, 10) || 0;
         let master = {...this.state.masters[index]};
         let list = [ ...this.state.masters ];
         master.level = newLevel;
@@ -209,8 +209,8 @@ class SwordFight extends Component{
                     <div key={index} className="tile is-parent">
                         <div className="tile is-child box">
                             <h2 className="title is-3 has-text-centered">Master {index+1}</h2>
-                            <TextInput id={"master_level_" + index} label="Level: " value={item.level} onChange={this.handleMasterLevelChange} />
-                            <TextInput id={"master_points_" + index} label="Unspent Points: " value={item.unspentPoints} onChange={this.handleMasterPointsChange} help="Ignore if not using Inspiring Leader" />
+                            <TextInput type="number" id={"master_level_" + index} label="Level: " value={item.level} onChange={this.handleMasterLevelChange} />
+                            <TextInput type="number" id={"master_points_" + index} label="Unspent Points: " value={item.unspentPoints} onChange={this.handleMasterPointsChange} help="Ignore if not using Inspiring Leader" />
                         </div>
                     </div>
                 ))}
@@ -220,8 +220,8 @@ class SwordFight extends Component{
                 <div className="tile is-parent">
                     <div className="tile is-child box">
                         <h2 className="title is-3 has-text-centered">Rival Master</h2>
-                        <TextInput id="rival_master_level" label="Level: " value={this.state.rivalMasterLevel} onChange={this.handleRivalMasterLevelChange} />
-                        <TextInput id="rival_master_target_level" label="Target Level: " value={this.state.rivalMasterTargetLevel} onChange={this.handleRivalMasterTargetLevelChange} />
+                        <TextInput type="number" id="rival_master_level" label="Level: " value={this.state.rivalMasterLevel} onChange={this.handleRivalMasterLevelChange} />
+                        <TextInput type="number" id="rival_master_target_level" label="Target Level: " value={this.state.rivalMasterTargetLevel} onChange={this.handleRivalMasterTargetLevelChange} />
                         <CheckboxInput id="rival_master_greater_ambition" type="checkbox" label="Co-Founder with Greater Ambition" checked={this.state.rivalMasterGreaterAmbition} onChange={this.handleRivalMasterGreaterAmbitionChange} />
                     </div>
                 </div>
@@ -229,7 +229,7 @@ class SwordFight extends Component{
                     <div className="tile is-child box">
                         <h2 className="title is-3 has-text-centered">Inspiring Leader</h2>
                         <h6 className="subtitle is-6 has-text-centered">(Xander's 4th Skill)</h6>
-                        <TextInput id="inspiring_leader_level" label="Level: " value={this.state.inspiringLeaderLevel} onChange={this.handleInspiringLeaderLevelChange} />
+                        <TextInput type="number" id="inspiring_leader_level" label="Level: " value={this.state.inspiringLeaderLevel} onChange={this.handleInspiringLeaderLevelChange} />
                         <CheckboxInput id="inspiring_leader_greater" label="Greater Inspiring Leader unlocked" checked={this.state.greaterInspiringLeader} onChange={this.handleGreaterInspiringLeaderChange} />
                     </div>
                 </div>
