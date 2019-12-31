@@ -5,7 +5,7 @@ import {
   NavLink,
   HashRouter
 } from "react-router-dom";
-
+import Home from './Home'
 import SwordFight from './Components/SwordFight'
 import Navbar from './Components/Navbar'
 import Timer from './Components/Timer/Timer'
@@ -26,9 +26,11 @@ function App() {
   return (
     <HashRouter>
       <div className="App">
-        <Navbar homepage="https://exadi.github.io/idle-timer" logo="" pages={pages} />
+        <Navbar pages={pages} />
         <section className="section">
           <div className="container is-fluid">
+            
+          <Route exact path="/" component={Home}/>
             {pages.map((item) => (
               <Route path={item.link} component={item.component}/>
             ))}
