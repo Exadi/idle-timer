@@ -12,7 +12,7 @@ import Timer from './Components/Timer/Timer'
 import './App.scss';
 import IdlingToRuleTheGods from './Components/IdlingToRuleTheGods';
 
-let selectedPage = <SwordFight/>
+/* this array is used to create the Navbar and Routes */
 let pages = [
   {title:"Sword Fight", link: "/sword-fight", component: SwordFight, subpages: 
     [
@@ -21,10 +21,6 @@ let pages = [
   },
   {title:"ITRTG", link: "/itrtg", component: IdlingToRuleTheGods}
 ]
-
-function selectPage(index){
-  selectedPage = pages[index].content
-}
 
 function App() {
   return (
