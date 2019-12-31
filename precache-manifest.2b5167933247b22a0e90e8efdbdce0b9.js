@@ -1,23 +1,23 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "482e02ae86c91d0f4d31343c2943b6c9",
+    "revision": "06c2d995f82f105463bf4a28505946f1",
     "url": "/idle-timer/index.html"
   },
   {
-    "revision": "ba5037c8858808915154",
-    "url": "/idle-timer/static/css/main.5ef8ca3c.chunk.css"
+    "revision": "16ee847a74b3c3beb83f",
+    "url": "/idle-timer/static/css/main.015b9f4c.chunk.css"
   },
   {
-    "revision": "f6c937b2cc4871a3f9ca",
-    "url": "/idle-timer/static/js/2.11383735.chunk.js"
+    "revision": "3ea1ebdb61bcf76e94f9",
+    "url": "/idle-timer/static/js/2.8779b55b.chunk.js"
   },
   {
-    "revision": "d705cb622423d72c5defbf368ca70dcc",
-    "url": "/idle-timer/static/js/2.11383735.chunk.js.LICENSE"
+    "revision": "e928fe768baa9832b5bc57eae021f30c",
+    "url": "/idle-timer/static/js/2.8779b55b.chunk.js.LICENSE"
   },
   {
-    "revision": "ba5037c8858808915154",
-    "url": "/idle-timer/static/js/main.1176cb52.chunk.js"
+    "revision": "16ee847a74b3c3beb83f",
+    "url": "/idle-timer/static/js/main.48737d78.chunk.js"
   },
   {
     "revision": "c3371e93809b882d2a0c",
