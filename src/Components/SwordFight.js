@@ -202,7 +202,7 @@ class SwordFight extends Component{
 
     render(){
         return (
-        <div id="sword-fight-calculator">
+        <div id="sword-fight-calculator" className="slide-from-right">
             <h1 className="title is-1 has-text-centered">Rival Leveling Time</h1>
             <div className="tile is-ancestor">
                 {this.state.masters.map((item, index) => (

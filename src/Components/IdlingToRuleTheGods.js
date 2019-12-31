@@ -16,7 +16,7 @@ class IdlingToRuleTheGods extends Component{
 
     render(){
         return (
-        <div id="itrtg-calculator">
+        <div id="itrtg-calculator" className="slide-from-right">
             <div className="has-text-centered">
                 <h1 className="title is-1 has-text-centered">Idling to Rule the Gods</h1>
                 <h2 className="title is-2 has-text-centered">Coming Soon</h2>
