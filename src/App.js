@@ -34,10 +34,10 @@ function App() {
             {pages.map((item) => {
               return (
                 <div>
-                <Route path={item.link} component={item.component}/>
+                <Route exact path={item.link} component={item.component}/>
                 {item.subpages ? item.subpages.map((subpage) => {
                   return (
-                    <Route path={subpage.link} component={subpage.component}/>
+                    <Route exact path={subpage.link} component={subpage.component}/>
                   );
                 }): ""}
                 </div>
