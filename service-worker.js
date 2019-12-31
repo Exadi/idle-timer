@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/idle-timer/precache-manifest.2b5167933247b22a0e90e8efdbdce0b9.js"
+  "/idle-timer/precache-manifest.143e0e116fc91d2d34e879859ae20868.js"
 );
 
 self.addEventListener('message', (event) => {
