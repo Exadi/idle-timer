@@ -1,6 +1,33 @@
 import React, {Component} from 'react';
 import {NavLink} from 'react-router-dom'
 
+/* navbar mobile menu toggle (unmodified example implementation from https://bulma.io/documentation/components/navbar/) */
+document.addEventListener('DOMContentLoaded', () => {
+
+    // Get all "navbar-burger" elements
+    const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+  
+    // Check if there are any navbar burgers
+    if ($navbarBurgers.length > 0) {
+  
+      // Add a click event on each of them
+      $navbarBurgers.forEach( el => {
+        el.addEventListener('click', () => {
+  
+          // Get the target from the "data-target" attribute
+          const target = el.dataset.target;
+          const $target = document.getElementById(target);
+  
+          // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+          el.classList.toggle('is-active');
+          $target.classList.toggle('is-active');
+  
+        });
+      });
+    }
+  
+  });
+
 class Navbar extends Component{
     constructor(props){
         super(props);
@@ -30,11 +57,36 @@ class Navbar extends Component{
 
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    {this.props.pages.map((item) => (
-                        <NavLink className="navbar-item" to={item.link}>
-                            {item.title}
-                        </NavLink>
-                    ))}
+                    {this.props.pages.map((item) => {
+                        return (
+                            /* empty root element to contain this without changing the html and misaligning the menu */
+                        <>
+                            
+                            {item.subpages ? 
+                            /*item has subpages - make dropdown*/
+                            (<div class="navbar-item has-dropdown is-hoverable">
+                                <NavLink className="navbar-item" to={item.link}>
+                                    {item.title}
+                                 </NavLink>
+                                 <div class="navbar-dropdown">
+                                    {item.subpages.map((subpage) => {
+                                        return (
+                                            <NavLink className="navbar-item" to={subpage.link}>
+                                                {subpage.title}
+                                            </NavLink>
+                                        );
+                                    })}
+                                </div>
+                            </div>)
+                            : 
+                            /* item doesn't have subpages - just show the link */
+                            (<NavLink className="navbar-item" to={item.link}>
+                                {item.title}
+                            </NavLink>)}
+
+                        </>
+                        );
+                        })}
                 </div>
 
                 <div class="navbar-end">

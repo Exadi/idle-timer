@@ -14,7 +14,11 @@ import IdlingToRuleTheGods from './Components/IdlingToRuleTheGods';
 
 let selectedPage = <SwordFight/>
 let pages = [
-  {title:"Sword Fight", link: "/sword-fight", component: SwordFight},
+  {title:"Sword Fight", link: "/sword-fight", component: SwordFight, subpages: 
+    [
+      {title:"Rival Leveling Time", link:"/sword-fight/rival-leveling", component: SwordFight}
+    ]
+  },
   {title:"ITRTG", link: "/itrtg", component: IdlingToRuleTheGods}
 ]
 
@@ -31,9 +35,18 @@ function App() {
           <div className="container is-fluid">
             
           <Route exact path="/" component={Home}/>
-            {pages.map((item) => (
-              <Route path={item.link} component={item.component}/>
-            ))}
+            {pages.map((item) => {
+              return (
+                <div>
+                <Route path={item.link} component={item.component}/>
+                {item.subpages ? item.subpages.map((subpage) => {
+                  return (
+                    <Route path={subpage.link} component={subpage.component}/>
+                  );
+                }): ""}
+                </div>
+              );
+              })}
           </div>
         </section>
       </div>
