@@ -33,14 +33,14 @@ function App() {
           <Route exact path="/" component={Home}/>
             {pages.map((item) => {
               return (
-                <div>
+                <>
                 <Route exact path={item.link} component={item.component}/>
                 {item.subpages ? item.subpages.map((subpage) => {
                   return (
                     <Route exact path={subpage.link} component={subpage.component}/>
                   );
                 }): ""}
-                </div>
+                </>
               );
               })}
           </div>

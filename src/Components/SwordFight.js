@@ -107,10 +107,11 @@ class SwordFight extends Component{
     }
 
     capUnspent(unspentPoints){
-        let cap = this.state.greaterInspiringLeader ? this.state.inspiringLeaderLevel * 30 : this.state.inspiringLeaderLevel * 20;
+        let maxPointsPerInspiringLeaderLevel = this.state.greaterInspiringLeader ? 30 : 20;
+        let cap = this.state.inspiringLeaderLevel * maxPointsPerInspiringLeaderLevel;
         let capped = Math.min(unspentPoints, cap);
         if(capped < unspentPoints) console.log("Capped " + unspentPoints + " unspent points at " + capped);
-        return Math.min(unspentPoints, cap);
+        return capped;
     }
     calculate(){
         let rivalLevel = this.state.rivalMasterLevel;
@@ -118,14 +119,15 @@ class SwordFight extends Component{
         let greaterAmbition = this.state.rivalMasterGreaterAmbition;
 
         //adjust master levels to account for greater ambition and create an array of the values
-        let effectiveLevels = this.state.masters.map((item) => (greaterAmbition ? item.level + 100 : item.level))
+        const greaterAmbitionBonus = 100;
+        let effectiveLevels = this.state.masters.map((master) => (greaterAmbition ? master.level + greaterAmbitionBonus : master.level))
         
         //if master levels are too low to reach the target, return an error message
         if (rivalTargetLevel > Math.max(...effectiveLevels)){
             alert("Rival will never reach target level!");
             return;
         }
-        let totalUnspentPoints = this.state.masters.map((item) => (this.capUnspent(item.unspentPoints))).reduce((a, b) => (a+b));
+        let totalUnspentPoints = this.state.masters.map((master) => (this.capUnspent(master.unspentPoints))).reduce((a, b) => (a+b));
         console.log("Total unspent points: " + totalUnspentPoints);
 
         let totalMinutes = 0.0;
