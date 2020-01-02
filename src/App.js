@@ -2,23 +2,24 @@ import React from "react";
 //import logo from './logo.svg';
 import { Route, NavLink, HashRouter } from "react-router-dom";
 import Home from "./Home";
-import SwordFight from "./Components/SwordFight";
+import RivalLevelingTime from "./Components/Calculators/SwordFight/RivalLevelingTime";
 import Navbar from "./Components/Navbar";
 import Timer from "./Components/Timer/Timer";
 import "./App.scss";
-import IdlingToRuleTheGods from "./Components/IdlingToRuleTheGods";
+import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 
 /* this array is used to create the Navbar and Routes */
 let pages = [
   {
     title: "Sword Fight",
-    link: "/sword-fight",
-    component: SwordFight,
+    //these top level links will just go to the first calculator because I don't know what to put on a landing page for each game...
+    component: RivalLevelingTime,
+    link: "/sword-fight/rival-leveling",
     subpages: [
       {
         title: "Rival Leveling Time",
         link: "/sword-fight/rival-leveling",
-        component: SwordFight
+        component: RivalLevelingTime
       }
     ]
   },
