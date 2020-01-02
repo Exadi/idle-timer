@@ -285,7 +285,17 @@ class RivalLevelingTime extends Component {
               <CheckboxInput
                 id="rival_master_greater_ambition"
                 type="checkbox"
-                label="Co-Founder with Greater Ambition"
+                label={
+                  <>
+                    Co-Founder with{" "}
+                    <span
+                      class="tooltip-available"
+                      data-tooltip="Unlocks upon completing 10 Co-Founder special trainings."
+                    >
+                      Greater Ambition
+                    </span>
+                  </>
+                }
                 checked={this.state.rivalMasterGreaterAmbition}
                 onChange={this.handleRivalMasterGreaterAmbitionChange}
               />
@@ -306,7 +316,17 @@ class RivalLevelingTime extends Component {
               />
               <CheckboxInput
                 id="inspiring_leader_greater"
-                label="Greater Inspiring Leader unlocked"
+                label={
+                  <>
+                    <span
+                      class="tooltip-available"
+                      data-tooltip="Unlocks upon completing all 15 Co-Founder special trainings."
+                    >
+                      Greater Inspiring Leader
+                    </span>{" "}
+                    unlocked
+                  </>
+                }
                 checked={this.state.greaterInspiringLeader}
                 onChange={this.handleGreaterInspiringLeaderChange}
               />

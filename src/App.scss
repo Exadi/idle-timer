@@ -1,6 +1,7 @@
 $primary: #094074;
 $secondary: #3c6997;
 @import "bulma";
+@import "bulma-tooltip";
 
 html {
   font-size: calc(0.7em + 1vw);
@@ -24,4 +25,9 @@ html {
   100% {
     left: 0;
   }
+}
+
+.tooltip-available {
+  text-decoration: underline;
+  color: $info;
 }
