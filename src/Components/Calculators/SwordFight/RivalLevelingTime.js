@@ -234,7 +234,9 @@ class RivalLevelingTime extends Component {
   render() {
     return (
       <div id="sword-fight-calculator" className="slide-from-right">
-        <h1 className="title is-1 has-text-centered">Rival Leveling Time</h1>
+        <h1 className="title is-1 has-text-centered">
+          Sword Fight - Rival Leveling Time
+        </h1>
         <div className="tile is-ancestor">
           {this.state.masters.map((item, index) => (
             <div key={index} className="tile is-parent">
