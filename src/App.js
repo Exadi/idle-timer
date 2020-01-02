@@ -34,19 +34,21 @@ function App() {
         <section className="section">
           <div className="container">
             <Route exact path="/" component={Home} />
-            {pages.map(item => {
+            {pages.map(page => {
               return (
                 <>
-                  <Route exact path={item.link} component={item.component} />
-                  {item.subpages
-                    ? item.subpages.map(subpage => {
-                        return (
-                          <Route
-                            exact
-                            path={subpage.link}
-                            component={subpage.component}
-                          />
-                        );
+                  <Route exact path={page.link} component={page.component} />
+                  {page.subpages
+                    ? page.subpages.map(subpage => {
+                        if (subpage.link != page.link) {
+                          return (
+                            <Route
+                              exact
+                              path={subpage.link}
+                              component={subpage.component}
+                            />
+                          );
+                        } else return null;
                       })
                     : ""}
                 </>
