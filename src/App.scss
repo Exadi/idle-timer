@@ -1,9 +1,9 @@
 $primary: #094074;
-$secondary: #3C6997;
-@import 'bulma';
+$secondary: #3c6997;
+@import "bulma";
 
-html { 
-  font-size: calc(0.7em + 1vw); 
+html {
+  font-size: calc(0.7em + 1vw);
 }
 
 @media screen and (min-width: 50em) {
@@ -13,7 +13,7 @@ html {
 }
 
 .slide-from-right {
-  animation: slideAnim .3s ease-in-out;
+  animation: slideAnim 0.3s ease-in-out;
   position: relative;
 }
 
