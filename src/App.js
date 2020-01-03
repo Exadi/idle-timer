@@ -1,10 +1,9 @@
 import React from "react";
 //import logo from './logo.svg';
-import { Route, NavLink, HashRouter } from "react-router-dom";
+import { Route, HashRouter } from "react-router-dom";
 import Home from "./Home";
 import RivalLevelingTime from "./Components/Calculators/SwordFight/RivalLevelingTime";
 import Navbar from "./Components/Navbar";
-import Timer from "./Components/Timer/Timer";
 import "./App.scss";
 import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 
@@ -40,7 +39,7 @@ function App() {
                   <Route exact path={page.link} component={page.component} />
                   {page.subpages
                     ? page.subpages.map(subpage => {
-                        if (subpage.link != page.link) {
+                        if (subpage.link !== page.link) {
                           return (
                             <Route
                               exact

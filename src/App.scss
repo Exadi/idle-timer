@@ -27,7 +27,14 @@ html {
   }
 }
 
-.tooltip-available {
-  text-decoration: underline;
-  color: $info;
+.navbar-burger {
+  background-color: $primary;
+  border: none;
+}
+
+.tooltip {
+  @include from($desktop) {
+    text-decoration: underline;
+    color: $info;
+  }
 }

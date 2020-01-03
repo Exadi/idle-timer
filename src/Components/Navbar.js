@@ -47,15 +47,20 @@ class Navbar extends Component {
           <div class="navbar-brand">
             <NavLink className="navbar-item" to="/">
               {this.props.logo ? (
-                <img src={this.props.logo} width="112" height="28"></img>
+                <img
+                  src={this.props.logo}
+                  width="112"
+                  height="28"
+                  alt="logo"
+                ></img>
               ) : (
                 "Home"
               )}
             </NavLink>
 
-            <a
-              role="button"
-              class="navbar-burger burger"
+            <button
+              //role="button"
+              className="navbar-burger burger"
               aria-label="menu"
               aria-expanded="false"
               data-target="navbarBasicExample"
@@ -63,22 +68,22 @@ class Navbar extends Component {
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
               <span aria-hidden="true"></span>
-            </a>
+            </button>
           </div>
 
-          <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
+          <div id="navbarBasicExample" className="navbar-menu">
+            <div className="navbar-start">
               {this.props.pages.map(item => {
                 return (
                   /* empty root element to contain this without changing the html and misaligning the menu */
                   <>
                     {item.subpages ? (
                       /*item has subpages - make dropdown*/
-                      <div class="navbar-item has-dropdown is-hoverable">
+                      <div className="navbar-item has-dropdown is-hoverable">
                         <NavLink className="navbar-link" to={item.link}>
                           {item.title}
                         </NavLink>
-                        <div class="navbar-dropdown">
+                        <div className="navbar-dropdown">
                           {item.subpages.map(subpage => {
                             return (
                               <NavLink
@@ -102,8 +107,8 @@ class Navbar extends Component {
               })}
             </div>
 
-            <div class="navbar-end">
-              <div class="navbar-item">:)</div>
+            <div className="navbar-end">
+              <div className="navbar-item">:)</div>
             </div>
           </div>
         </div>

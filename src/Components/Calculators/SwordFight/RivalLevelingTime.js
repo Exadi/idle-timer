@@ -289,7 +289,7 @@ class RivalLevelingTime extends Component {
                   <>
                     Co-Founder with{" "}
                     <span
-                      class="tooltip-available"
+                      class="tooltip"
                       data-tooltip="Unlocks upon completing 10 Co-Founder special trainings."
                     >
                       Greater Ambition
@@ -319,7 +319,7 @@ class RivalLevelingTime extends Component {
                 label={
                   <>
                     <span
-                      class="tooltip-available"
+                      class="tooltip has-tooltip-right-mobile"
                       data-tooltip="Unlocks upon completing all 15 Co-Founder special trainings."
                     >
                       Greater Inspiring Leader
