@@ -3,8 +3,8 @@ import TextInput from "Components/FormControls/TextInput";
 import CheckboxInput from "Components/FormControls/CheckboxInput";
 import Timer from "Components/Timer/Timer";
 import bell_01 from "assets/bell_01.ogg";
-import Notification from "react-web-notification";
-import notifIcon from "assets/notif.png";
+import { connect } from "react-redux";
+import { addTimer } from "actions/";
 
 class Master {
   constructor(level, unspentPoints) {
@@ -24,10 +24,7 @@ class RivalLevelingTime extends Component {
       inspiringLeaderLevel: 0,
       greaterInspiringLeader: false,
       timerVisible: false,
-      timerSeconds: 0,
-      /*notification*/
-      ignore: true,
-      title: ""
+      timerSeconds: 0
     };
     this.handleMasterLevelChange = this.handleMasterLevelChange.bind(this);
     this.handleMasterPointsChange = this.handleMasterPointsChange.bind(this);
@@ -50,7 +47,6 @@ class RivalLevelingTime extends Component {
     );
 
     this.calculate = this.calculate.bind(this);
-    this.sendNotification = this.sendNotification.bind(this);
   }
 
   handleMasterLevelChange(event) {
@@ -178,57 +174,22 @@ class RivalLevelingTime extends Component {
     }
 
     console.log("The total time is " + totalMinutes);
+    const timerName = "Rival Leveling";
     let timerVisible = true;
     let timerSeconds = Math.round(totalMinutes * 60);
-    this.setState({
-      timerVisible,
-      timerSeconds
-    });
-  }
 
-  handlePermissionGranted() {
-    console.log("Permission Granted");
-    this.setState({
-      ignore: false
-    });
-  }
-  handlePermissionDenied() {
-    console.log("Permission Denied");
-    this.setState({
-      ignore: true
-    });
-  }
-  handleNotSupported() {
-    console.log("Web Notification not Supported");
-    this.setState({
-      ignore: true
-    });
-  }
-  sendNotification() {
-    if (this.state.ignore) {
-      return;
+    if (this.props.timers.find(item => item.name === timerName)) {
+      //TODO ask to overwrite timer
+      alert("this calculator already exists!");
+    } else {
+      this.props.dispatch(
+        addTimer({
+          name: timerName,
+          seconds: timerSeconds,
+          sound: bell_01
+        })
+      );
     }
-
-    const now = Date.now();
-
-    const title = "Idle Timer";
-    const body = "Rival Leveling Complete!";
-    const tag = now;
-    const icon = notifIcon;
-
-    // Available options
-    // See https://developer.mozilla.org/en-US/docs/Web/API/Notification/Notification
-    const options = {
-      tag: tag,
-      body: body,
-      icon: icon,
-      lang: "en",
-      dir: "ltr"
-    };
-    this.setState({
-      title: title,
-      options: options
-    });
   }
 
   render() {
@@ -340,23 +301,6 @@ class RivalLevelingTime extends Component {
             onClick={this.calculate}
             value="Calculate"
           ></input>
-          <Notification
-            ignore={this.state.ignore && this.state.title !== ""}
-            notSupported={this.handleNotSupported.bind(this)}
-            onPermissionGranted={this.handlePermissionGranted.bind(this)}
-            onPermissionDenied={this.handlePermissionDenied.bind(this)}
-            timeout={5000}
-            title={this.state.title}
-            options={this.state.options}
-            swRegistration={this.props.swRegistration}
-          />
-          <br />
-          <Timer
-            visible={this.state.timerVisible}
-            seconds={this.state.timerSeconds}
-            sound={bell_01}
-            notification={this.sendNotification}
-          />
           <br />
           <a
             target="_blank"
@@ -371,4 +315,10 @@ class RivalLevelingTime extends Component {
   }
 }
 
-export default RivalLevelingTime;
+const mapStateToProps = function(state) {
+  return {
+    timers: state.timers
+  };
+};
+
+export default connect(mapStateToProps)(RivalLevelingTime);

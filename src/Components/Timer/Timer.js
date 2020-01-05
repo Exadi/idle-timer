@@ -80,7 +80,6 @@ class Timer extends Component {
   }
 
   render() {
-    if (!this.props.visible) return null;
     let hours = Math.floor(this.state.seconds / 3600);
     let minutes = Math.floor(this.state.seconds / 60) - hours * 60;
     let seconds = this.state.seconds - minutes * 60 - hours * 3600;
@@ -89,7 +88,7 @@ class Timer extends Component {
         className="box has-text-centered"
         visible={this.props.visible ? "true" : "false"}
       >
-        <h2 className="subtitle is-3">Timer</h2>
+        <h2 className="subtitle is-3">{this.props.name}</h2>
 
         <div className="is-size-3">
           {hours}:{minutes < 10 ? "0" + minutes : minutes}:

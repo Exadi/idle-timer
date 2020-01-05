@@ -1,5 +1,6 @@
 $primary: #094074;
-$secondary: #3c6997;
+$secondary: #9fc2cc;
+$info: #9fc2cc;
 @import "bulma";
 @import "bulma-tooltip";
 
@@ -33,6 +34,10 @@ html {
 }
 
 .tooltip {
+  /* tooltips aren't very mobile-friendly (they have to be tapped which also selects the associated input if they're in a label, etc.)
+   so only highlight text that has tooltips on desktop
+   TODO still need to figure out how to stop the actual tooltip from coming up if the element is tapped anyway
+  */
   @include from($desktop) {
     text-decoration: underline;
     color: $info;
