@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import "./App.scss";
 import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 import TimerList from "./Components/Timer/TimerList";
+import CustomTimerAdder from "./Components/CustomTimerAdder";
 
 /* this array is used to create the Navbar and Routes */
 let pages = [
@@ -23,7 +24,8 @@ let pages = [
       }
     ]
   },
-  { title: "ITRTG", link: "/itrtg", component: IdlingToRuleTheGods }
+  { title: "ITRTG", link: "/itrtg", component: IdlingToRuleTheGods },
+  { title: "Custom Timer", link: "/custom", component: CustomTimerAdder }
 ];
 
 function App() {

@@ -44,16 +44,15 @@ function TimerList() {
     <div>
       <h1 className="title is-1 has-text-centered">Timers</h1>
 
-      {timers.map(timer => {
+      {timers.map((timer, i) => {
         return (
-          <>
-            <Timer
-              name={timer.name}
-              seconds={timer.seconds}
-              sound={timer.sound}
-              notification={() => sendNotification(timer.name)}
-            ></Timer>
-          </>
+          <Timer
+            key={i}
+            name={timer.name}
+            seconds={timer.seconds}
+            sound={timer.sound}
+            notification={() => sendNotification(timer.name)}
+          ></Timer>
         );
       })}
 

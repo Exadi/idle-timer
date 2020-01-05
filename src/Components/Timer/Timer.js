@@ -7,7 +7,7 @@ class Timer extends Component {
     super(props);
     this.state = {
       seconds: this.props.seconds,
-      isRunning: false,
+      isRunning: this.props.isRunning || false,
       playSound: true,
       sendNotification: false
     };
