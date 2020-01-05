@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import TextInput from "Components/FormControls/TextInput";
 import CheckboxInput from "Components/FormControls/CheckboxInput";
-import Timer from "Components/Timer/Timer";
 import bell_01 from "assets/bell_01.ogg";
 import { connect } from "react-redux";
 import { addTimer } from "actions/";
@@ -22,9 +21,7 @@ class RivalLevelingTime extends Component {
       rivalMasterTargetLevel: 0,
       rivalMasterGreaterAmbition: false,
       inspiringLeaderLevel: 0,
-      greaterInspiringLeader: false,
-      timerVisible: false,
-      timerSeconds: 0
+      greaterInspiringLeader: false
     };
     this.handleMasterLevelChange = this.handleMasterLevelChange.bind(this);
     this.handleMasterPointsChange = this.handleMasterPointsChange.bind(this);
@@ -175,12 +172,11 @@ class RivalLevelingTime extends Component {
 
     console.log("The total time is " + totalMinutes);
     const timerName = "Rival Leveling";
-    let timerVisible = true;
     let timerSeconds = Math.round(totalMinutes * 60);
 
     if (this.props.timers.find(item => item.name === timerName)) {
-      //TODO ask to overwrite timer
-      alert("this calculator already exists!");
+      //TODO ask to overwrite timer... or just do it without asking
+      alert("This timer already exists!");
     } else {
       this.props.dispatch(
         addTimer({

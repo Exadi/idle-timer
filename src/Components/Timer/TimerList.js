@@ -5,8 +5,8 @@ import notifIcon from "assets/notif.png";
 import Notification from "react-web-notification";
 
 function TimerList() {
+  //TODO style this component so that it sticks to the bottom of the screen and can be collapsed
   const timers = useSelector(state => state.timers);
-  console.log("TimerList has: " + timers);
 
   //notification title
   const [title, setTitle] = useState("");
@@ -42,7 +42,7 @@ function TimerList() {
 
   return (
     <div>
-      <h1>Timers</h1>
+      <h1 className="title is-1 has-text-centered">Timers</h1>
 
       {timers.map(timer => {
         return (
