@@ -64,6 +64,8 @@ html {
 .timerList {
   display: none;
   background-color: $primary;
+  color: white;
+  text-align: center;
 }
 
 .timerList.open {
@@ -77,4 +79,8 @@ html {
   width: 32%;
   margin: 2px;
   display: inline-block;
+}
+
+.main-section {
+  margin-bottom: 10vh;
 }

@@ -33,7 +33,7 @@ function App() {
     <Router>
       <div className="App">
         <Navbar pages={pages} />
-        <section className="section">
+        <section className="section main-section">
           <div className="container">
             <Route exact path="/" component={Home} />
             {pages.map((page, i) => {

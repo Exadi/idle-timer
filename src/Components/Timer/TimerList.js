@@ -50,17 +50,21 @@ function TimerList() {
         Timers
       </h1>
       <div className={open ? "timerList open" : "timerList"}>
-        {timers.map((timer, i) => {
-          return (
-            <Timer
-              key={i}
-              name={timer.name}
-              seconds={timer.seconds}
-              sound={timer.sound}
-              notification={() => sendNotification(timer.name)}
-            ></Timer>
-          );
-        })}
+        {timers.length > 0 ? (
+          timers.map((timer, i) => {
+            return (
+              <Timer
+                key={i}
+                name={timer.name}
+                seconds={timer.seconds}
+                sound={timer.sound}
+                notification={() => sendNotification(timer.name)}
+              ></Timer>
+            );
+          })
+        ) : (
+          <div>There are no timers yet.</div>
+        )}
       </div>
 
       <Notification
