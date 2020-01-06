@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 /* navbar mobile menu toggle (unmodified example implementation from https://bulma.io/documentation/components/navbar/) */
@@ -32,19 +32,15 @@ class Navbar extends Component {
     this.state = {};
   }
 
-  setActiveTab(e) {
-    console.log(e.target.id);
-  }
-
   render() {
     return (
       <nav
-        class="navbar is-primary"
+        className="navbar is-primary"
         role="navigation"
         aria-label="main navigation"
       >
-        <div class="container">
-          <div class="navbar-brand">
+        <div className="container">
+          <div className="navbar-brand">
             <NavLink className="navbar-item" to="/">
               {this.props.logo ? (
                 <img
@@ -73,10 +69,10 @@ class Navbar extends Component {
 
           <div id="navbarBasicExample" className="navbar-menu">
             <div className="navbar-start">
-              {this.props.pages.map(item => {
+              {this.props.pages.map((item, i) => {
                 return (
                   /* empty root element to contain this without changing the html and misaligning the menu */
-                  <>
+                  <Fragment key={i}>
                     {item.subpages ? (
                       /*item has subpages - make dropdown*/
                       <div className="navbar-item has-dropdown is-hoverable">
@@ -84,9 +80,10 @@ class Navbar extends Component {
                           {item.title}
                         </NavLink>
                         <div className="navbar-dropdown">
-                          {item.subpages.map(subpage => {
+                          {item.subpages.map((subpage, i) => {
                             return (
                               <NavLink
+                                key={i}
                                 className="navbar-item"
                                 to={subpage.link}
                               >
@@ -102,7 +99,7 @@ class Navbar extends Component {
                         {item.title}
                       </NavLink>
                     )}
-                  </>
+                  </Fragment>
                 );
               })}
             </div>

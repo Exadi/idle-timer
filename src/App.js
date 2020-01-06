@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 //import logo from './logo.svg';
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./Home";
@@ -36,15 +36,16 @@ function App() {
         <section className="section">
           <div className="container">
             <Route exact path="/" component={Home} />
-            {pages.map(page => {
+            {pages.map((page, i) => {
               return (
-                <>
+                <Fragment key={i}>
                   <Route exact path={page.link} component={page.component} />
                   {page.subpages
-                    ? page.subpages.map(subpage => {
+                    ? page.subpages.map((subpage, i) => {
                         if (subpage.link !== page.link) {
                           return (
                             <Route
+                              key={i}
                               exact
                               path={subpage.link}
                               component={subpage.component}
@@ -53,7 +54,7 @@ function App() {
                         } else return null;
                       })
                     : ""}
-                </>
+                </Fragment>
               );
             })}
           </div>
