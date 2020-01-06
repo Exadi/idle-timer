@@ -12,6 +12,7 @@ function TimerList() {
   const [title, setTitle] = useState("");
   const [ignore, setIgnore] = useState(false);
   const [options, setOptions] = useState({});
+  const [open, setOpen] = useState(false);
 
   const sendNotification = name => {
     if (ignore) {
@@ -42,19 +43,25 @@ function TimerList() {
 
   return (
     <div>
-      <h1 className="title is-1 has-text-centered">Timers</h1>
-
-      {timers.map((timer, i) => {
-        return (
-          <Timer
-            key={i}
-            name={timer.name}
-            seconds={timer.seconds}
-            sound={timer.sound}
-            notification={() => sendNotification(timer.name)}
-          ></Timer>
-        );
-      })}
+      <h1
+        className="title is-1 has-text-centered"
+        onClick={() => setOpen(!open)}
+      >
+        Timers
+      </h1>
+      <div className={open ? "timerList open" : "timerList"}>
+        {timers.map((timer, i) => {
+          return (
+            <Timer
+              key={i}
+              name={timer.name}
+              seconds={timer.seconds}
+              sound={timer.sound}
+              notification={() => sendNotification(timer.name)}
+            ></Timer>
+          );
+        })}
+      </div>
 
       <Notification
         ignore={ignore && title !== ""}

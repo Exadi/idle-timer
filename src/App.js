@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 //import logo from './logo.svg';
 import { Route, BrowserRouter as Router } from "react-router-dom";
-import Home from "./Home";
+import Home from "./Components/Home";
 import RivalLevelingTime from "./Components/Calculators/SwordFight/RivalLevelingTime";
 import Navbar from "./Components/Navbar";
 import "./App.scss";
@@ -58,10 +58,10 @@ function App() {
               );
             })}
           </div>
-          <div className="container">
-            <TimerList></TimerList>
-          </div>
         </section>
+        <div className="timers">
+          <TimerList></TimerList>
+        </div>
       </div>
     </Router>
   );

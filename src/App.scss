@@ -43,3 +43,38 @@ html {
     color: $info;
   }
 }
+
+.timers {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.timers h1 {
+  width: fit-content;
+  margin: 0 auto;
+  border: 1px solid $secondary;
+  border-bottom: none;
+  background-color: $primary;
+  color: $white;
+  padding: 5px;
+  margin-bottom: 0 !important;
+}
+
+.timerList {
+  display: none;
+  background-color: $primary;
+}
+
+.timerList.open {
+  display: block;
+  max-height: 40vh;
+  padding: 10px;
+  overflow: scroll;
+}
+
+.timerList .box {
+  width: 32%;
+  margin: 2px;
+  display: inline-block;
+}
