@@ -53,26 +53,36 @@ html {
 .timers h1 {
   width: fit-content;
   margin: 0 auto;
-  border: 1px solid $secondary;
+  border: 4px solid $secondary;
   border-bottom: none;
   background-color: $primary;
   color: $white;
   padding: 5px;
   margin-bottom: 0 !important;
+  border-radius: 20px 20px 0 0;
 }
 
 .timerList {
-  display: none;
+  display: block;
   background-color: $primary;
+  border: 5px solid $primary;
   color: white;
+  overflow: hidden;
   text-align: center;
+  animation-fill-mode: both;
+  display: block;
+  position: relative;
+  transition: max-height 0.5s, padding 0.5s;
+}
+
+.timerList.closed {
+  max-height: 0vh;
+  padding: 0;
 }
 
 .timerList.open {
-  display: block;
   max-height: 40vh;
   padding: 10px;
-  overflow: scroll;
 }
 
 .timerList .box {

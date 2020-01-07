@@ -49,7 +49,7 @@ function TimerList() {
       >
         Timers
       </h1>
-      <div className={open ? "timerList open" : "timerList"}>
+      <div className={open ? "timerList open" : "timerList closed"}>
         {timers.length > 0 ? (
           timers.map((timer, i) => {
             return (
