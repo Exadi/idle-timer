@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import CheckboxInput from "Components/FormControls/CheckboxInput";
+import "./Timer.scss";
 import bell_01 from "assets/bell_01.ogg";
 
 class Timer extends Component {
@@ -84,13 +85,10 @@ class Timer extends Component {
     let minutes = Math.floor(this.state.seconds / 60) - hours * 60;
     let seconds = this.state.seconds - minutes * 60 - hours * 3600;
     return (
-      <div
-        className="box has-text-centered"
-        visible={this.props.visible ? "true" : "false"}
-      >
+      <div className="timer" visible={this.props.visible ? "true" : "false"}>
         <h2 className="subtitle is-3">{this.props.name}</h2>
 
-        <div className="is-size-3">
+        <div className="is-size-4">
           {hours}:{minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
         </div>
@@ -103,14 +101,14 @@ class Timer extends Component {
         <div className="columns">
           <div className="column">
             <CheckboxInput
-              label="Play Sound"
+              label="Sound"
               checked={this.state.playSound}
               onChange={this.handlePlaySoundChange}
             />
           </div>
           <div className="column">
             <CheckboxInput
-              label="Send Notification"
+              label="Notification"
               checked={this.state.sendNotification}
               onChange={this.handleSendNotificationChange}
             />

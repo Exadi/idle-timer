@@ -1,0 +1,39 @@
+@import "App.scss";
+
+.timerList h1 {
+  font-size: 1.5rem;
+}
+
+.timer-list-pagination-arrow,
+.timer-list-pagination-current {
+  display: inline-block;
+  width: 50px;
+}
+.timerListBox {
+  display: block;
+  background-color: $primary;
+  border: 5px solid $primary;
+  color: white;
+  overflow: hidden;
+  text-align: center;
+  animation-fill-mode: both;
+  display: block;
+  position: relative;
+  transition: max-height 0.5s, padding 0.5s;
+}
+
+.timerListBox.closed {
+  max-height: 0vh;
+  padding: 0;
+}
+
+.timerListBox.open {
+  max-height: 40vh;
+  padding: 10px;
+}
+
+.timerListBox > .timer {
+  width: 30%;
+  margin: 2px;
+  display: inline-block;
+}
