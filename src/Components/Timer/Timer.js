@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import CheckboxInput from "Components/FormControls/CheckboxInput";
 import "./Timer.scss";
 import bell_01 from "assets/bell_01.ogg";
+import { removeTimer } from "actions";
+import { connect } from "react-redux";
 
 class Timer extends Component {
   constructor(props) {
@@ -86,7 +88,15 @@ class Timer extends Component {
     let seconds = this.state.seconds - minutes * 60 - hours * 3600;
     return (
       <div className={this.props.visible ? "timer" : "timer hidden"}>
-        <h2 className="subtitle is-3">{this.props.name}</h2>
+        <h2 className="subtitle is-3">
+          {this.props.name}
+          <span
+            className="icon has-text-danger"
+            onClick={() => this.props.dispatch(removeTimer(this.props.name))}
+          >
+            <i className="fas fa-times"></i>
+          </span>
+        </h2>
 
         <div className="is-size-4">
           {hours}:{minutes < 10 ? "0" + minutes : minutes}:
@@ -119,4 +129,4 @@ class Timer extends Component {
   }
 }
 
-export default Timer;
+export default connect()(Timer);

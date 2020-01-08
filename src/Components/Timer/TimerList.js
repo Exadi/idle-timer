@@ -17,7 +17,6 @@ function TimerList() {
   const [page, setPage] = useState(0);
   const itemsPerPage = 3;
 
-  //TODO figure out how to only display the timers in the slice, but still have the other ones running
   let timersSlice = [];
 
   if (timers.length > 0) {

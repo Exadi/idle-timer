@@ -4,3 +4,10 @@ export const addTimer = timer => {
     payload: timer
   };
 };
+
+export const removeTimer = timer => {
+  return {
+    type: "REMOVE_TIMER",
+    payload: timer
+  };
+};

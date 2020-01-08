@@ -3,6 +3,9 @@ $secondary: #9fc2cc;
 $info: #9fc2cc;
 @import "bulma";
 @import "bulma-tooltip";
+@import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
+@import "@fortawesome/fontawesome-free/scss/solid.scss";
+@import "@fortawesome/fontawesome-free/scss/brands.scss";
 
 html {
   font-size: calc(0.7em + 1vw);

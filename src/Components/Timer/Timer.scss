@@ -6,3 +6,13 @@
 .timer.hidden {
   display: none !important;
 }
+
+.timer h2 {
+  position: relative;
+}
+.timer h2 span {
+  position: absolute;
+  right: 3px;
+  top: 3px;
+  font-size: 1.4rem;
+}
