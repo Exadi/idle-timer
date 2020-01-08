@@ -66,9 +66,10 @@ function TimerList() {
           <div className="timer-list-pagination">
             <span className="timer-list-pagination-arrow">
               {prevVisible ? (
-                <button onClick={() => setPage(Math.max(0, page - 1))}>
-                  &lt;
-                </button>
+                <i
+                  className="fas fa-arrow-circle-left"
+                  onClick={() => setPage(Math.max(0, page - 1))}
+                ></i>
               ) : null}
             </span>
             <span className="timer-list-pagination-current">
@@ -76,12 +77,11 @@ function TimerList() {
             </span>
             <span className="timer-list-pagination-arrow">
               {nextVisible ? (
-                <button
+                <i
+                  className="fas fa-arrow-circle-right"
                   visible={nextVisible}
                   onClick={() => setPage(Math.min(page + 1, lastPage))}
-                >
-                  &gt;
-                </button>
+                ></i>
               ) : null}
             </span>
           </div>
