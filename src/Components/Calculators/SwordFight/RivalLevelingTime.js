@@ -3,7 +3,7 @@ import TextInput from "Components/FormControls/TextInput";
 import CheckboxInput from "Components/FormControls/CheckboxInput";
 import bell_01 from "assets/bell_01.ogg";
 import { connect } from "react-redux";
-import { addTimer } from "actions/";
+import { AddTimer } from "App";
 
 class Master {
   constructor(level, unspentPoints) {
@@ -174,18 +174,13 @@ class RivalLevelingTime extends Component {
     const timerName = "Rival Leveling";
     let timerSeconds = Math.round(totalMinutes * 60);
 
-    if (this.props.timers.find(item => item.name === timerName)) {
-      //TODO ask to overwrite timer... or just do it without asking
-      alert("This timer already exists!");
-    } else {
-      this.props.dispatch(
-        addTimer({
-          name: timerName,
-          seconds: timerSeconds,
-          sound: bell_01
-        })
-      );
-    }
+    AddTimer(
+      this.props.timers,
+      this.props.dispatch,
+      timerName,
+      timerSeconds,
+      bell_01
+    );
   }
 
   render() {

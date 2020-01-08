@@ -8,6 +8,7 @@ import "./App.scss";
 import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 import TimerList from "./Components/Timer/TimerList";
 import CustomTimerAdder from "./Components/CustomTimerAdder";
+import { addTimer } from "./actions";
 
 /* this array is used to create the Navbar and Routes */
 let pages = [
@@ -27,6 +28,21 @@ let pages = [
   { title: "ITRTG", link: "/itrtg", component: IdlingToRuleTheGods },
   { title: "Custom Timer", link: "/custom", component: CustomTimerAdder }
 ];
+
+export function AddTimer(timers, dispatch, name, seconds, sound) {
+  if (timers.find(item => item.name === name)) {
+    //TODO ask to overwrite timer... or just do it without asking
+    alert("This timer already exists!");
+  } else {
+    dispatch(
+      addTimer({
+        name,
+        seconds,
+        sound
+      })
+    );
+  }
+}
 
 function App() {
   return (

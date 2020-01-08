@@ -88,10 +88,15 @@ function TimerList() {
           </div>
         ) : null}
 
-        {timersSlice.length > 0 ? (
-          timersSlice.map((timer, i) => {
+        {timers.length > 0 ? (
+          timers.map((timer, i) => {
             return (
               <Timer
+                visible={
+                  timersSlice.find(item => item.name === timer.name)
+                    ? true
+                    : false
+                }
                 key={i}
                 name={timer.name}
                 seconds={timer.seconds}

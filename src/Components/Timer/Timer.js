@@ -85,7 +85,7 @@ class Timer extends Component {
     let minutes = Math.floor(this.state.seconds / 60) - hours * 60;
     let seconds = this.state.seconds - minutes * 60 - hours * 3600;
     return (
-      <div className="timer" visible={this.props.visible ? "true" : "false"}>
+      <div className={this.props.visible ? "timer" : "timer hidden"}>
         <h2 className="subtitle is-3">{this.props.name}</h2>
 
         <div className="is-size-4">

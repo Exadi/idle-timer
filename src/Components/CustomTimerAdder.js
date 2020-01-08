@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import TextInput from "Components/FormControls/TextInput";
 import bell_01 from "assets/bell_01.ogg";
-import { addTimer } from "actions/";
+import { AddTimer } from "../App";
 
 function CustomTimerAdder() {
+  const timers = useSelector(state => state.timers);
   const [name, setName] = useState("");
   const [seconds, setSeconds] = useState(0);
   const dispatch = useDispatch();
@@ -14,13 +15,7 @@ function CustomTimerAdder() {
     let timerName = name;
     let timerSeconds = seconds;
 
-    dispatch(
-      addTimer({
-        name: timerName,
-        seconds: timerSeconds,
-        sound: bell_01
-      })
-    );
+    AddTimer(timers, dispatch, timerName, timerSeconds, bell_01);
   };
 
   return (
