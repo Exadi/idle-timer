@@ -35,3 +35,8 @@
     justify-content: space-between;
   }
 }
+
+.timer .fa {
+  /*this is needed to keep all the buttons the same width*/
+  width: 20px;
+}

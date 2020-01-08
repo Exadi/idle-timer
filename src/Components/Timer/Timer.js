@@ -28,14 +28,14 @@ class Timer extends Component {
   }
 
   handlePlaySoundChange(event) {
-    let playSound = event.target.checked;
+    let playSound = !this.state.playSound;
     this.setState({
       playSound
     });
   }
 
   handleSendNotificationChange(event) {
-    let sendNotification = event.target.checked;
+    let sendNotification = !this.state.sendNotification;
     this.setState({
       sendNotification
     });
@@ -109,35 +109,51 @@ class Timer extends Component {
           {seconds < 10 ? "0" + seconds : seconds}
         </div>
         <div className="timer-controls">
-          <button className="icon has-text-danger" onClick={this.restart}>
+          <button className="button has-text-danger" onClick={this.restart}>
             <i className="fas fa-fast-backward"></i>
           </button>
           {this.state.isRunning ? (
-            <button className="icon has-text-warning" onClick={this.pause}>
+            <button className="button has-text-warning" onClick={this.pause}>
               <i className="fas fa-pause"></i>
             </button>
           ) : (
-            <button className="icon has-text-primary" onClick={this.start}>
+            <button className="button has-text-primary" onClick={this.start}>
               <i className="fas fa-play"></i>
             </button>
           )}
         </div>
+        <div className="timer-controls">
+          {this.state.playSound ? (
+            <button
+              className="button has-text-primary"
+              onClick={this.handlePlaySoundChange}
+            >
+              <i className="fas fa-volume-up"></i>
+            </button>
+          ) : (
+            <button
+              className="button has-text-primary"
+              onClick={this.handlePlaySoundChange}
+            >
+              <i className="fas fa-volume-mute"></i>
+            </button>
+          )}
 
-        <div className="columns">
-          <div className="column">
-            <CheckboxInput
-              label="Sound"
-              checked={this.state.playSound}
-              onChange={this.handlePlaySoundChange}
-            />
-          </div>
-          <div className="column">
-            <CheckboxInput
-              label="Notification"
-              checked={this.state.sendNotification}
-              onChange={this.handleSendNotificationChange}
-            />
-          </div>
+          {this.state.sendNotification ? (
+            <button
+              className="button has-text-primary"
+              onClick={this.handleSendNotificationChange}
+            >
+              <i className="fas fa-bell"></i>
+            </button>
+          ) : (
+            <button
+              className="button has-text-primary"
+              onClick={this.handleSendNotificationChange}
+            >
+              <i className="fas fa-bell-slash"></i>
+            </button>
+          )}
         </div>
       </div>
     );
