@@ -11,7 +11,6 @@ function CustomTimerAdder() {
   const dispatch = useDispatch();
 
   const addButton = () => {
-    console.log("TEST");
     let timerName = name;
     let timerSeconds = seconds;
 

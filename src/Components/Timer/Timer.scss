@@ -1,6 +1,9 @@
+@import "bulma";
+
 .timer {
   background-color: white;
   color: black;
+  padding: 3px;
 }
 
 .timer.hidden {
@@ -12,7 +15,23 @@
 }
 .timer h2 span {
   position: absolute;
-  right: 3px;
-  top: 3px;
+  right: 0;
+  top: 0;
   font-size: 1.4rem;
+}
+
+.timer .columns {
+  /*for some reason this has a negative margin by default and covers part of the buttons... */
+  margin-top: 0;
+  @include until($desktop) {
+    text-align: left;
+  }
+}
+
+.timer-controls {
+  //space out buttons on mobile since it might be easy to hit the wrong one.
+  @include until($desktop) {
+    display: flex;
+    justify-content: space-between;
+  }
 }

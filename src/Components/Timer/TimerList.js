@@ -79,7 +79,6 @@ function TimerList() {
               {nextVisible ? (
                 <i
                   className="fas fa-arrow-circle-right"
-                  visible={nextVisible}
                   onClick={() => setPage(Math.min(page + 1, lastPage))}
                 ></i>
               ) : null}

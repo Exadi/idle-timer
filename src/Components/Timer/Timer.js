@@ -17,6 +17,7 @@ class Timer extends Component {
     this.tick = this.tick.bind(this);
     this.start = this.start.bind(this);
     this.restart = this.restart.bind(this);
+    this.pause = this.pause.bind(this);
 
     this.handlePlaySoundChange = this.handlePlaySoundChange.bind(this);
     this.handleSendNotificationChange = this.handleSendNotificationChange.bind(
@@ -48,10 +49,12 @@ class Timer extends Component {
       clearInterval(this.intervalHandle);
       if (this.state.playSound) this.audio.play();
       if (this.state.sendNotification) this.props.notification();
+      this.restart();
+    } else {
+      this.setState({
+        seconds
+      });
     }
-    this.setState({
-      seconds
-    });
   }
   start() {
     this.intervalHandle = setInterval(this.tick, 1000);
@@ -59,7 +62,12 @@ class Timer extends Component {
       isRunning: true
     });
   }
-
+  pause() {
+    clearInterval(this.intervalHandle);
+    this.setState({
+      isRunning: false
+    });
+  }
   restart() {
     clearInterval(this.intervalHandle);
     this.setState({
@@ -69,8 +77,6 @@ class Timer extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    // Typical usage (don't forget to compare props):
-    console.log("Timer update");
     if (this.props.seconds !== prevProps.seconds) {
       this.setState({
         seconds: this.props.seconds,
@@ -102,12 +108,21 @@ class Timer extends Component {
           {hours}:{minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
         </div>
-        <input
-          type="button"
-          className="button is-primary is-outlined"
-          onClick={this.state.isRunning ? this.restart : this.start}
-          value={this.state.isRunning ? "Reset" : "Start"}
-        ></input>
+        <div className="timer-controls">
+          <button className="icon has-text-danger" onClick={this.restart}>
+            <i className="fas fa-fast-backward"></i>
+          </button>
+          {this.state.isRunning ? (
+            <button className="icon has-text-warning" onClick={this.pause}>
+              <i className="fas fa-pause"></i>
+            </button>
+          ) : (
+            <button className="icon has-text-primary" onClick={this.start}>
+              <i className="fas fa-play"></i>
+            </button>
+          )}
+        </div>
+
         <div className="columns">
           <div className="column">
             <CheckboxInput

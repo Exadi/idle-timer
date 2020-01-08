@@ -1,6 +1,5 @@
 import { combineReducers } from "redux";
 const timers = (state = [], action) => {
-  console.log("TIMER REDUCER");
   switch (action.type) {
     case "ADD_TIMER":
       return state.concat(action.payload);
