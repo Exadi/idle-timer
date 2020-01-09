@@ -13,11 +13,19 @@
 .timer h2 {
   position: relative;
 }
-.timer h2 span {
-  position: absolute;
-  right: 0;
-  top: 0;
-  font-size: 1.4rem;
+
+.timer h2 {
+  span {
+    position: absolute;
+    top: 0;
+    font-size: 1.4rem;
+  }
+  .has-text-danger {
+    right: 0;
+  }
+  .has-text-success {
+    left: 0;
+  }
 }
 
 .timer .columns {

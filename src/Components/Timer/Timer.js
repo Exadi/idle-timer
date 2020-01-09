@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import CheckboxInput from "Components/FormControls/CheckboxInput";
 import "./Timer.scss";
-import bell_01 from "assets/bell_01.ogg";
 import { removeTimer } from "actions";
 import { connect } from "react-redux";
 
@@ -12,7 +10,8 @@ class Timer extends Component {
       seconds: this.props.seconds,
       isRunning: this.props.isRunning || false,
       playSound: true,
-      sendNotification: false
+      sendNotification: false,
+      hasFinished: false
     };
     this.tick = this.tick.bind(this);
     this.start = this.start.bind(this);
@@ -50,6 +49,7 @@ class Timer extends Component {
       if (this.state.playSound) this.audio.play();
       if (this.state.sendNotification) this.props.notification();
       this.restart();
+      this.setState({ hasFinished: true });
     } else {
       this.setState({
         seconds
@@ -59,7 +59,8 @@ class Timer extends Component {
   start() {
     this.intervalHandle = setInterval(this.tick, 1000);
     this.setState({
-      isRunning: true
+      isRunning: true,
+      hasFinished: false
     });
   }
   pause() {
@@ -95,6 +96,14 @@ class Timer extends Component {
     return (
       <div className={this.props.visible ? "timer" : "timer hidden"}>
         <h2 className="subtitle is-3">
+          {this.state.hasFinished ? (
+            <span
+              className="icon has-text-success tooltip"
+              data-tooltip="This timer has finished."
+            >
+              <i className="fas fa-check"></i>
+            </span>
+          ) : null}
           {this.props.name}
           <span
             className="icon has-text-danger"
