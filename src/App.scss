@@ -1,8 +1,6 @@
 $primary: #094074;
 $secondary: #9fc2cc;
 $info: #9fc2cc;
-@import "bulma";
-@import "bulma-tooltip";
 @import "@fortawesome/fontawesome-free/scss/fontawesome.scss";
 @import "@fortawesome/fontawesome-free/scss/solid.scss";
 @import "@fortawesome/fontawesome-free/scss/brands.scss";
@@ -36,17 +34,6 @@ html {
   border: none;
 }
 
-.tooltip {
-  /* tooltips aren't very mobile-friendly (they have to be tapped which also selects the associated input if they're in a label, etc.)
-   so only highlight text that has tooltips on desktop
-   TODO still need to figure out how to stop the actual tooltip from coming up if the element is tapped anyway
-  */
-  @include from($desktop) {
-    text-decoration: underline;
-    color: $info;
-  }
-}
-
 .timers {
   position: fixed;
   bottom: 0;
@@ -59,7 +46,7 @@ html {
   box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
   border-bottom: none;
   background-color: $primary;
-  color: $white;
+  color: "#ffffff";
   padding: 5px;
   margin-bottom: 0 !important;
   border-radius: 20px 20px 0 0;

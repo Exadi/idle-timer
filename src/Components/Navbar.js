@@ -1,117 +1,71 @@
-import React, { Component, Fragment } from "react";
-import { NavLink } from "react-router-dom";
+import React, { Component, Fragment, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link as RouterLink } from "react-router-dom";
+import AppBar from "@material-ui/core/AppBar";
+import Toolbar from "@material-ui/core/Toolbar";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Button from "@material-ui/core/Button";
+import { makeStyles } from "@material-ui/core/styles";
+import Badge from "@material-ui/core/Badge";
+import TimerIcon from "@material-ui/icons/Timer";
+import DropDownMenuItem from "Components/DropDownMenuItem.js";
 
-/* navbar mobile menu toggle (unmodified example implementation from https://bulma.io/documentation/components/navbar/) */
-document.addEventListener("DOMContentLoaded", () => {
-  // Get all "navbar-burger" elements
-  const $navbarBurgers = Array.prototype.slice.call(
-    document.querySelectorAll(".navbar-burger"),
-    0
-  );
-
-  // Check if there are any navbar burgers
-  if ($navbarBurgers.length > 0) {
-    // Add a click event on each of them
-    $navbarBurgers.forEach(el => {
-      el.addEventListener("click", () => {
-        // Get the target from the "data-target" attribute
-        const target = el.dataset.target;
-        const $target = document.getElementById(target);
-
-        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-        el.classList.toggle("is-active");
-        $target.classList.toggle("is-active");
-      });
-    });
+//TODO replace horizontal navigation with burger menu on mobile
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  pages: {
+    display: "flex",
+    flexGrow: 1
   }
-});
+}));
 
-class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
+export default function Navbar(props) {
+  const classes = useStyles();
+  const timers = useSelector(state => state.timers);
 
-  render() {
-    return (
-      <nav
-        className="navbar is-primary"
-        role="navigation"
-        aria-label="main navigation"
-      >
-        <div className="container">
-          <div className="navbar-brand">
-            <NavLink className="navbar-item" to="/">
-              {this.props.logo ? (
-                <img
-                  src={this.props.logo}
-                  width="112"
-                  height="28"
-                  alt="logo"
-                ></img>
-              ) : (
-                "Home"
-              )}
-            </NavLink>
-
-            <button
-              //role="button"
-              className="navbar-burger burger"
-              aria-label="menu"
-              aria-expanded="false"
-              data-target="navbarBasicExample"
-            >
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-              <span aria-hidden="true"></span>
-            </button>
-          </div>
-
-          <div id="navbarBasicExample" className="navbar-menu">
-            <div className="navbar-start">
-              {this.props.pages.map((item, i) => {
-                return (
-                  /* empty root element to contain this without changing the html and misaligning the menu */
-                  <Fragment key={i}>
-                    {item.subpages ? (
-                      /*item has subpages - make dropdown*/
-                      <div className="navbar-item has-dropdown is-hoverable">
-                        <NavLink className="navbar-link" to={item.link}>
-                          {item.title}
-                        </NavLink>
-                        <div className="navbar-dropdown">
-                          {item.subpages.map((subpage, i) => {
-                            return (
-                              <NavLink
-                                key={i}
-                                className="navbar-item"
-                                to={subpage.link}
-                              >
-                                {subpage.title}
-                              </NavLink>
-                            );
-                          })}
-                        </div>
-                      </div>
-                    ) : (
-                      /* item doesn't have subpages - just show the link */
-                      <NavLink className="navbar-item" to={item.link}>
-                        {item.title}
-                      </NavLink>
-                    )}
-                  </Fragment>
-                );
-              })}
-            </div>
-
-            <div className="navbar-end">
-              <div className="navbar-item">:)</div>
-            </div>
-          </div>
+  return (
+    <AppBar position="static">
+      <Toolbar>
+        <IconButton edge="start" color="inherit" aria-label="menu">
+          <MenuIcon />
+        </IconButton>
+        <Button color="inherit" component={RouterLink} to="/">
+          {props.logo ? (
+            <img src={props.logo} width="112" height="28" alt="logo"></img>
+          ) : (
+            "Home"
+          )}
+        </Button>
+        <div className={classes.pages}>
+          {props.pages.map((item, i) => {
+            return (
+              <Fragment key={i}>
+                {item.subpages ? (
+                  //item has subpages - make dropdown
+                  <DropDownMenuItem page={item} />
+                ) : (
+                  //item doesn't have subpages - just show the link
+                  <Button color="inherit" component={RouterLink} to={item.link}>
+                    {item.title}
+                  </Button>
+                )}
+              </Fragment>
+            );
+          })}
         </div>
-      </nav>
-    );
-  }
+        <IconButton color="inherit">
+          <Badge badgeContent={timers.length} color="secondary">
+            <TimerIcon />
+            {/*TODO make this open timers (modal?)*/}
+          </Badge>
+        </IconButton>
+      </Toolbar>
+    </AppBar>
+  );
 }
-
-export default Navbar;

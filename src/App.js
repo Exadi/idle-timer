@@ -4,14 +4,16 @@ import { Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./Components/Home";
 import RivalLevelingTime from "./Components/Calculators/SwordFight/RivalLevelingTime";
 import Navbar from "./Components/Navbar";
-import "./App.scss";
+//import "./App.scss";
 import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 import TimerList from "./Components/Timer/TimerList";
 import CustomTimerAdder from "./Components/CustomTimerAdder";
 import { addTimer } from "./actions";
+import { ThemeProvider } from "@material-ui/core/styles";
+import theme from "theme.js";
 
 /* this array is used to create the Navbar and Routes */
-let pages = [
+const pages = [
   {
     title: "Sword Fight",
     //these top level links will just go to the first calculator because I don't know what to put on a landing page for each game...
@@ -46,40 +48,42 @@ export function AddTimer(timers, dispatch, name, seconds, sound) {
 
 function App() {
   return (
-    <Router>
-      <div className="App">
-        <Navbar pages={pages} />
-        <section className="section main-section">
-          <div className="container">
-            <Route exact path="/" component={Home} />
-            {pages.map((page, i) => {
-              return (
-                <Fragment key={i}>
-                  <Route exact path={page.link} component={page.component} />
-                  {page.subpages
-                    ? page.subpages.map((subpage, i) => {
-                        if (subpage.link !== page.link) {
-                          return (
-                            <Route
-                              key={i}
-                              exact
-                              path={subpage.link}
-                              component={subpage.component}
-                            />
-                          );
-                        } else return null;
-                      })
-                    : ""}
-                </Fragment>
-              );
-            })}
+    <ThemeProvider theme={theme}>
+      <Router>
+        <div className="App">
+          <Navbar pages={pages} />
+          <section className="section main-section">
+            <div className="container">
+              <Route exact path="/" component={Home} />
+              {pages.map((page, i) => {
+                return (
+                  <Fragment key={i}>
+                    <Route exact path={page.link} component={page.component} />
+                    {page.subpages
+                      ? page.subpages.map((subpage, i) => {
+                          if (subpage.link !== page.link) {
+                            return (
+                              <Route
+                                key={i}
+                                exact
+                                path={subpage.link}
+                                component={subpage.component}
+                              />
+                            );
+                          } else return null;
+                        })
+                      : ""}
+                  </Fragment>
+                );
+              })}
+            </div>
+          </section>
+          <div className="timers">
+            <TimerList></TimerList>
           </div>
-        </section>
-        <div className="timers">
-          <TimerList></TimerList>
         </div>
-      </div>
-    </Router>
+      </Router>
+    </ThemeProvider>
   );
 }
 
