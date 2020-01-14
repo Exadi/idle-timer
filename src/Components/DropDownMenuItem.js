@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
   },
   paper: {
     marginRight: theme.spacing(2)
+  },
+  menu: {
+    zIndex: "10000"
   }
 }));
 
@@ -24,8 +27,11 @@ export default function DropDownMenuItem(props) {
   const [open, setOpen] = React.useState(false);
   const anchorRef = React.useRef(null);
 
-  const handleEnter = () => {
-    setOpen(true);
+  const handleEnter = e => {
+    if (e.key !== "Tab") {
+      e.preventDefault();
+      setOpen(true);
+    }
   };
 
   const handleLeave = () => {
@@ -71,6 +77,7 @@ export default function DropDownMenuItem(props) {
           aria-haspopup="true"
           component={RouterLink}
           to={props.page.link}
+          onKeyDown={handleEnter}
         >
           {props.page.title}
           <ArrowDropDown></ArrowDropDown>
@@ -81,6 +88,7 @@ export default function DropDownMenuItem(props) {
           role={undefined}
           transition
           placement="bottom-start"
+          className={classes.menu}
         >
           {({ TransitionProps, placement }) => (
             <Grow

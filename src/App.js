@@ -11,6 +11,7 @@ import CustomTimerAdder from "./Components/CustomTimerAdder";
 import { addTimer } from "./actions";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "theme.js";
+import Container from "@material-ui/core/Container";
 
 /* this array is used to create the Navbar and Routes */
 const pages = [
@@ -52,32 +53,30 @@ function App() {
       <Router>
         <div className="App">
           <Navbar pages={pages} />
-          <section className="section main-section">
-            <div className="container">
-              <Route exact path="/" component={Home} />
-              {pages.map((page, i) => {
-                return (
-                  <Fragment key={i}>
-                    <Route exact path={page.link} component={page.component} />
-                    {page.subpages
-                      ? page.subpages.map((subpage, i) => {
-                          if (subpage.link !== page.link) {
-                            return (
-                              <Route
-                                key={i}
-                                exact
-                                path={subpage.link}
-                                component={subpage.component}
-                              />
-                            );
-                          } else return null;
-                        })
-                      : ""}
-                  </Fragment>
-                );
-              })}
-            </div>
-          </section>
+          <Container>
+            <Route exact path="/" component={Home} />
+            {pages.map((page, i) => {
+              return (
+                <Fragment key={i}>
+                  <Route exact path={page.link} component={page.component} />
+                  {page.subpages
+                    ? page.subpages.map((subpage, i) => {
+                        if (subpage.link !== page.link) {
+                          return (
+                            <Route
+                              key={i}
+                              exact
+                              path={subpage.link}
+                              component={subpage.component}
+                            />
+                          );
+                        } else return null;
+                      })
+                    : ""}
+                </Fragment>
+              );
+            })}
+          </Container>
           <div className="timers">
             <TimerList></TimerList>
           </div>
