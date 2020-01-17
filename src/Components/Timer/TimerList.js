@@ -32,7 +32,7 @@ function TimerList() {
     const now = Date.now();
 
     const title = "Idle Timer";
-    const body = name + " Complete!";
+    const body = "The timer \"" + name + "\" is complete!";
     const tag = now;
     const icon = notifIcon;
 
@@ -93,9 +93,9 @@ function TimerList() {
           );
         })
       ) : (
-        <div>There are no timers yet.</div>
-      )}
-      
+          <div>There are no timers yet.</div>
+        )}
+
     </div>
   );
 }
