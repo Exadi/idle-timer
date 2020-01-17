@@ -12,6 +12,14 @@ import { addTimer } from "./actions";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "theme.js";
 import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Modal from "@material-ui/core/Modal";
+import Badge from "@material-ui/core/Badge";
+import TimerIcon from "@material-ui/icons/Timer";
+import { useSelector } from "react-redux";
+import IconButton from "@material-ui/core/IconButton";
+import Paper from "@material-ui/core/Paper";
+import Fade from "@material-ui/core/Fade";
 
 /* this array is used to create the Navbar and Routes */
 const pages = [
@@ -47,41 +55,85 @@ export function AddTimer(timers, dispatch, name, seconds, sound) {
   }
 }
 
+function getModalStyle() {
+  const top = 50;
+  const left = 50;
+
+  return {
+    position: `absolute`,
+    top: `${top}%`,
+    left: `${left}%`,
+    transform: `translate(-${top}%, -${left}%)`
+  };
+}
+
 function App() {
+  const timers = useSelector(state => state.timers);
+  const [timersOpen, setTimersOpen] = React.useState(false);
+  const [modalStyle] = React.useState(getModalStyle);
+
+  let buttons = [
+    <IconButton
+      key="timersButton"
+      color="inherit"
+      onClick={() => setTimersOpen(true)}
+    >
+      <Badge badgeContent={timers.length} color="secondary">
+        <TimerIcon />
+        {/*TODO this would probably be better if it showed the number of timers that aren't running. */}
+      </Badge>
+    </IconButton>
+  ];
+
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <div className="App">
-          <Navbar pages={pages} />
-          <Container>
-            <Route exact path="/" component={Home} />
-            {pages.map((page, i) => {
-              return (
-                <Fragment key={i}>
-                  <Route exact path={page.link} component={page.component} />
-                  {page.subpages
-                    ? page.subpages.map((subpage, i) => {
-                        if (subpage.link !== page.link) {
-                          return (
-                            <Route
-                              key={i}
-                              exact
-                              path={subpage.link}
-                              component={subpage.component}
-                            />
-                          );
-                        } else return null;
-                      })
-                    : ""}
-                </Fragment>
-              );
-            })}
-          </Container>
-          <div className="timers">
-            <TimerList></TimerList>
+      <CssBaseline>
+        <Router>
+          <div className="App">
+            <Navbar pages={pages} buttons={buttons} />
+            <Container>
+              <Route exact path="/" component={Home} />
+              {pages.map((page, i) => {
+                return (
+                  <Fragment key={i}>
+                    <Route exact path={page.link} component={page.component} />
+                    {page.subpages
+                      ? page.subpages.map((subpage, i) => {
+                          if (subpage.link !== page.link) {
+                            return (
+                              <Route
+                                key={i}
+                                exact
+                                path={subpage.link}
+                                component={subpage.component}
+                              />
+                            );
+                          } else return null;
+                        })
+                      : ""}
+                  </Fragment>
+                );
+              })}
+            </Container>
+
+            <Modal
+              aria-labelledby="simple-modal-title"
+              aria-describedby="simple-modal-description"
+              open={timersOpen}
+              onClose={() => setTimersOpen(false)}
+              keepMounted
+            >
+              <Fade in={timersOpen}>
+                <Paper style={modalStyle}>
+                  <h2 id="simple-modal-title">Timers</h2>
+                  <p id="simple-modal-description">View timers.</p>
+                  <TimerList></TimerList>
+                </Paper>
+              </Fade>
+            </Modal>
           </div>
-        </div>
-      </Router>
+        </Router>
+      </CssBaseline>
     </ThemeProvider>
   );
 }

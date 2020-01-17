@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Timer from "./Timer";
 import notifIcon from "assets/notif.png";
-import Notification from "react-web-notification";
 import "./TimerList.scss";
 
 function TimerList() {
@@ -12,7 +11,6 @@ function TimerList() {
   const [title, setTitle] = useState("");
   const [ignore, setIgnore] = useState(false);
   const [options, setOptions] = useState({});
-  const [open, setOpen] = useState(false);
 
   const [page, setPage] = useState(0);
   const itemsPerPage = 3;
@@ -31,10 +29,6 @@ function TimerList() {
   let nextVisible = page < lastPage;
 
   const sendNotification = name => {
-    if (ignore) {
-      return;
-    }
-
     const now = Date.now();
 
     const title = "Idle Timer";
@@ -52,71 +46,56 @@ function TimerList() {
       dir: "ltr"
     };
 
-    //options must be set first, as notification appears when title is set
-    setOptions(options);
-    setTitle(title);
+    var n = new Notification(title, options);
   };
 
   return (
     <div className="timerList">
-      <h1 onClick={() => setOpen(!open)}>Timers ({timers.length})</h1>
+      {timersSlice.length > 0 ? (
+        <div className="timer-list-pagination">
+          <span className="timer-list-pagination-arrow">
+            {prevVisible ? (
+              <i
+                className="fas fa-arrow-circle-left"
+                onClick={() => setPage(Math.max(0, page - 1))}
+              ></i>
+            ) : null}
+          </span>
+          <span className="timer-list-pagination-current">
+            {page + 1}/{lastPage + 1}
+          </span>
+          <span className="timer-list-pagination-arrow">
+            {nextVisible ? (
+              <i
+                className="fas fa-arrow-circle-right"
+                onClick={() => setPage(Math.min(page + 1, lastPage))}
+              ></i>
+            ) : null}
+          </span>
+        </div>
+      ) : null}
 
-      <div className={open ? "timerListBox open" : "timerListBox closed"}>
-        {timersSlice.length > 0 ? (
-          <div className="timer-list-pagination">
-            <span className="timer-list-pagination-arrow">
-              {prevVisible ? (
-                <i
-                  className="fas fa-arrow-circle-left"
-                  onClick={() => setPage(Math.max(0, page - 1))}
-                ></i>
-              ) : null}
-            </span>
-            <span className="timer-list-pagination-current">
-              {page + 1}/{lastPage + 1}
-            </span>
-            <span className="timer-list-pagination-arrow">
-              {nextVisible ? (
-                <i
-                  className="fas fa-arrow-circle-right"
-                  onClick={() => setPage(Math.min(page + 1, lastPage))}
-                ></i>
-              ) : null}
-            </span>
-          </div>
-        ) : null}
-
-        {timers.length > 0 ? (
-          timers.map((timer, i) => {
-            return (
-              <Timer
-                visible={
-                  timersSlice.find(item => item.name === timer.name)
-                    ? true
-                    : false
-                }
-                key={i}
-                name={timer.name}
-                seconds={timer.seconds}
-                sound={timer.sound}
-                notification={() => sendNotification(timer.name)}
-              ></Timer>
-            );
-          })
-        ) : (
-          <div>There are no timers yet.</div>
-        )}
-      </div>
-
-      <Notification
-        ignore={ignore && title !== ""}
-        notSupported={() => setIgnore(true)}
-        onPermissionGranted={() => setIgnore(false)}
-        onPermissionDenied={() => setIgnore(true)}
-        timeout={5000}
-        title={title}
-        options={options}
-      />
+      {timers.length > 0 ? (
+        timers.map((timer, i) => {
+          return (
+            <Timer
+              visible={
+                timersSlice.find(item => item.name === timer.name)
+                  ? true
+                  : false
+              }
+              key={i}
+              name={timer.name}
+              seconds={timer.seconds}
+              sound={timer.sound}
+              notification={() => sendNotification(timer.name)}
+            ></Timer>
+          );
+        })
+      ) : (
+        <div>There are no timers yet.</div>
+      )}
+      
     </div>
   );
 }

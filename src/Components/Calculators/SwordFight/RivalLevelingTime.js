@@ -4,6 +4,8 @@ import CheckboxInput from "Components/FormControls/CheckboxInput";
 import bell_01 from "assets/bell_01.ogg";
 import { connect } from "react-redux";
 import { AddTimer } from "App";
+import Grid from "@material-ui/core/Grid";
+import Paper from "@material-ui/core/Paper";
 
 class Master {
   constructor(level, unspentPoints) {
@@ -189,10 +191,10 @@ class RivalLevelingTime extends Component {
         <h1 className="title is-1 has-text-centered">
           Sword Fight - Rival Leveling Time
         </h1>
-        <div className="tile is-ancestor">
+        <Grid container spacing={3}>
           {this.state.masters.map((item, index) => (
-            <div key={index} className="tile is-parent">
-              <div className="tile is-child box">
+            <Grid item xs={12} sm={4}>
+              <Paper>
                 <h2 className="title is-3 has-text-centered">
                   Master {index + 1}
                 </h2>
@@ -211,10 +213,10 @@ class RivalLevelingTime extends Component {
                   onChange={this.handleMasterPointsChange}
                   help="Ignore if not using Inspiring Leader"
                 />
-              </div>
-            </div>
+              </Paper>
+            </Grid>
           ))}
-        </div>
+        </Grid>
 
         <div className="tile is-ancestor">
           <div className="tile is-parent">

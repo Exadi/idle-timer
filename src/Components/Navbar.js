@@ -1,5 +1,4 @@
-import React, { Component, Fragment, useState } from "react";
-import { useSelector } from "react-redux";
+import React, { Fragment, useState } from "react";
 import { Link as RouterLink, Redirect } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -8,8 +7,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Button from "@material-ui/core/Button";
 import Drawer from "@material-ui/core/Drawer";
 import { makeStyles } from "@material-ui/core/styles";
-import Badge from "@material-ui/core/Badge";
-import TimerIcon from "@material-ui/icons/Timer";
 import DropDownMenuItem from "Components/DropDownMenuItem.js";
 import TreeView from "@material-ui/lab/TreeView";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
@@ -43,7 +40,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Navbar(props) {
   const classes = useStyles();
-  const timers = useSelector(state => state.timers);
   const [drawer, setDrawer] = useState(false);
   const [redirect, setRedirect] = useState("");
 
@@ -91,12 +87,7 @@ export default function Navbar(props) {
               })}
             </div>
           </div>
-          <IconButton color="inherit">
-            <Badge badgeContent={timers.length} color="secondary">
-              <TimerIcon />
-              {/*TODO make this open timers (modal?) Also this would probably be better if it showed the number of timers that aren't running. */}
-            </Badge>
-          </IconButton>
+          {props.buttons.map(item => item)}
         </Toolbar>
       </AppBar>
       <Toolbar></Toolbar>
@@ -106,11 +97,11 @@ export default function Navbar(props) {
         onClose={() => setDrawer(false)}
         className={classes.drawer}
       >
-        //TODO change this to a List component
         <TreeView
           defaultCollapseIcon={<ExpandMoreIcon />}
           defaultExpandIcon={<ChevronRightIcon />}
         >
+          {/*TODO change this to a List component*/}
           {props.pages.map((item, i) => {
             return (
               <TreeItem

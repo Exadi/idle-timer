@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Timer.scss";
 import { removeTimer } from "actions";
 import { connect } from "react-redux";
+import notifIcon from "assets/notif.png";
 
 class Timer extends Component {
   constructor(props) {
@@ -35,6 +36,9 @@ class Timer extends Component {
 
   handleSendNotificationChange(event) {
     let sendNotification = !this.state.sendNotification;
+    if (sendNotification){
+      this.notifyMe();
+    }
     this.setState({
       sendNotification
     });
@@ -87,6 +91,41 @@ class Timer extends Component {
         clearInterval(this.intervalHandle);
       }
     }
+  }
+
+  
+
+  notifyMe() {
+    // Let's check if the browser supports notifications
+    if (!("Notification" in window)) {
+      alert("This browser does not support desktop notification");
+    }
+  
+    // Let's check whether notification permissions have alredy been granted
+    else if (Notification.permission === "granted") {
+      // If it's okay let's not create a notification
+      //var notification = new Notification("Hi there!");
+      //TODO maybe add an option later for testing notifications when permission has already been granted.
+    }
+  
+    // Otherwise, we need to ask the user for permission
+    else if (Notification.permission !== 'denied' || Notification.permission === "default") {
+      Notification.requestPermission(function (permission) {
+        // If the user accepts, let's create a notification
+        if (permission === "granted") {
+          const options = {
+            body: "This is what your notifications will look like.",
+            icon: notifIcon,
+            lang: "en",
+            dir: "ltr"
+          };
+          var notification = new Notification("Hi there!", options);
+        }
+      });
+    }
+  
+    // At last, if the user has denied notifications, and you 
+    // want to be respectful there is no need to bother them any more.
   }
 
   render() {
