@@ -4,35 +4,47 @@ import bell_01 from "assets/bell_01.ogg";
 import { AddTimer } from "../App";
 import { TextField, Grid, Button, Typography } from "@material-ui/core";
 
-function checkFocusNext(input, previous, nextRef) {
-  //if input is 2 digits, go to the next input, to help people enter numbers quicker but also allow them to go back and enter a 3 digit number if desired.
-
-  //don't jump to the next element if they're backspacing
-  if (input > previous) {
-    if (input >= 10 && input <= 99) {
-      nextRef.current.focus();
-    }
-  }
-}
-
 function CustomTimerAdder() {
   const timers = useSelector(state => state.timers);
   const [name, setName] = useState("");
   const [hours, setHours] = useState(0);
   const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
   const hoursElement = useRef(null);
   const minutesElement = useRef(null);
   const secondsElement = useRef(null);
 
   const addButton = () => {
-    let timerName = name;
-    let timerSeconds = hours * 3600 + minutes * 60 + seconds;
+    if (validateName()) {
+      let timerName = name;
+      let timerSeconds = hours * 3600 + minutes * 60 + seconds;
 
-    AddTimer(timers, dispatch, timerName, timerSeconds, bell_01);
+      AddTimer(timers, dispatch, timerName, timerSeconds, bell_01);
+    }
   };
 
+  const validateName = () => {
+    if (!name) {
+      setErrors({ name: "Name is required" });
+      return false;
+    } else {
+      setErrors({ name: null });
+      return true;
+    }
+  };
+
+  const checkFocusNext = (input, previous, nextRef) => {
+    //if input is 2 digits, go to the next input, to help people enter numbers quicker but also allow them to go back and enter a 3 digit number if desired.
+
+    //don't jump to the next element if they're backspacing
+    if (input > previous) {
+      if (input >= 10 && input <= 99) {
+        nextRef.current.focus();
+      }
+    }
+  };
   return (
     <Grid container spacing={3}>
       <Grid item xs={12} style={{ textAlign: "center" }}>
@@ -44,9 +56,13 @@ function CustomTimerAdder() {
       </Grid>
       <Grid item xs={12}>
         <TextField
+          error={errors.name ? "error" : null}
+          helperText={errors.name}
           label="Name: "
           value={name}
           onChange={e => setName(e.target.value)}
+          onBlur={() => validateName()}
+          required
         ></TextField>
       </Grid>
       <Grid item xs={4}>
