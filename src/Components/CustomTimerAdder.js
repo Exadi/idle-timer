@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import TextInput from "Components/FormControls/TextInput";
 import bell_01 from "assets/bell_01.ogg";
 import { AddTimer } from "../App";
+import { TextField, Grid, Button, Typography } from "@material-ui/core";
 
 function CustomTimerAdder() {
   const timers = useSelector(state => state.timers);
@@ -20,41 +20,49 @@ function CustomTimerAdder() {
   };
 
   return (
-    <div>
-      <h1 className="title is-1 has-text-centered">Custom Timer</h1>
-      <p>
-        Here you can add timers for anything you want, as long as you already
-        know how much time it will take.
-      </p>
-      <TextInput
-        label="Name: "
-        value={name}
-        onChange={e => setName(e.target.value)}
-      ></TextInput>
-      <TextInput
-        label="Hours: "
-        value={hours}
-        onChange={e => setHours(parseInt(e.target.value) || 0)}
-      ></TextInput>
-      <TextInput
-        label="Minutes: "
-        value={minutes}
-        onChange={e => setMinutes(parseInt(e.target.value) || 0)}
-      ></TextInput>
-      <TextInput
-        label="Seconds: "
-        value={seconds}
-        onChange={e => setSeconds(parseInt(e.target.value) || 0)}
-      ></TextInput>
-      <div className="has-text-centered">
-        <input
-          type="button"
-          className="button is-primary"
-          onClick={addButton}
-          value="Add"
-        ></input>
-      </div>
-    </div>
+    <Grid container spacing={3}>
+      <Grid item xs={12} style={{ textAlign: "center" }}>
+        <Typography variant="h4">Custom Timer</Typography>
+        <Typography>
+          Here you can add timers for anything you want, as long as you already
+          know how much time it will take.
+        </Typography>
+      </Grid>
+      <Grid item xs={12}>
+        <TextField
+          label="Name: "
+          value={name}
+          onChange={e => setName(e.target.value)}
+        ></TextField>
+      </Grid>
+      <Grid item xs={4}>
+        <TextField
+          label="Hours: "
+          value={hours}
+          onChange={e => setHours(parseInt(e.target.value) || 0)}
+        ></TextField>
+      </Grid>
+      <Grid item xs={4}>
+        <TextField
+          label="Minutes: "
+          value={minutes}
+          onChange={e => setMinutes(parseInt(e.target.value) || 0)}
+        ></TextField>
+      </Grid>
+      <Grid item xs={4}>
+        <TextField
+          label="Seconds: "
+          value={seconds}
+          onChange={e => setSeconds(parseInt(e.target.value) || 0)}
+        ></TextField>
+      </Grid>
+
+      <Grid item xs={12} style={{ textAlign: "center" }}>
+        <Button variant="contained" color="primary" onClick={addButton}>
+          Add
+        </Button>
+      </Grid>
+    </Grid>
   );
 }
 

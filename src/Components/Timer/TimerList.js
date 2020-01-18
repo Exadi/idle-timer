@@ -2,8 +2,17 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Timer from "./Timer";
 import notifIcon from "assets/notif.png";
+import { makeStyles, Paper } from "@material-ui/core";
+
+const useStyles = makeStyles(theme => ({
+  paper: {
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.primary.contrastText
+  }
+}));
 
 function TimerList() {
+  const classes = useStyles();
   const timers = useSelector(state => state.timers);
 
   const [page, setPage] = useState(0);
@@ -45,7 +54,7 @@ function TimerList() {
   };
 
   return (
-    <div className="timerList">
+    <Paper className={classes.paper}>
       {timersSlice.length > 0 ? (
         <div className="timer-list-pagination">
           <span className="timer-list-pagination-arrow">
@@ -91,7 +100,7 @@ function TimerList() {
       ) : (
         <div>There are no timers yet.</div>
       )}
-    </div>
+    </Paper>
   );
 }
 
