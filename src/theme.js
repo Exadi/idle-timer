@@ -6,10 +6,16 @@ let theme = createMuiTheme({
   palette: {
     primary: { main: "#303f9f" },
     secondary: { main: "#B7ADCF" },
-    background: { default: background }
+    background: { default: background },
+    textPrimary: { main: "#B7ADCF" }
   },
-  status: {
-    danger: "orange"
+  props: {
+    MuiTextField: {
+      margin: "normal",
+      variant: "filled",
+      fullWidth: true,
+      color: "primary"
+    }
   },
   overrides: {
     MuiButton: {
@@ -19,7 +25,14 @@ let theme = createMuiTheme({
     },
     MuiPaper: {
       root: {
-        textAlign: "center"
+        textAlign: "center",
+        padding: "10px"
+      }
+    },
+    MuiInputLabel: {
+      filled: {
+        /*default didn't have enough contrast*/
+        color: "#000000"
       }
     }
   }

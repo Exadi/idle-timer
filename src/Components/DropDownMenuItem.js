@@ -111,6 +111,7 @@ export default function DropDownMenuItem(props) {
                           onClick={handleClose}
                           component={RouterLink}
                           to={item.link}
+                          key={item.link}
                         >
                           {item.title}
                         </MenuItem>

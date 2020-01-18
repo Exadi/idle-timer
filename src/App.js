@@ -1,10 +1,8 @@
 import React, { Fragment } from "react";
-//import logo from './logo.svg';
 import { Route, BrowserRouter as Router } from "react-router-dom";
 import Home from "./Components/Home";
 import RivalLevelingTime from "./Components/Calculators/SwordFight/RivalLevelingTime";
 import Navbar from "./Components/Navbar";
-//import "./App.scss";
 import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 import TimerList from "./Components/Timer/TimerList";
 import CustomTimerAdder from "./Components/CustomTimerAdder";
@@ -20,6 +18,7 @@ import { useSelector } from "react-redux";
 import IconButton from "@material-ui/core/IconButton";
 import Paper from "@material-ui/core/Paper";
 import Fade from "@material-ui/core/Fade";
+import "typeface-roboto";
 
 /* this array is used to create the Navbar and Routes */
 const pages = [
@@ -96,7 +95,7 @@ function App() {
         <Router>
           <div className="App">
             <Navbar pages={pages} buttons={buttons} />
-            <Container>
+            <Container style={{ paddingTop: "25px", paddingBottom: "25px" }}>
               <Route exact path="/" component={Home} />
               {pages.map((page, i) => {
                 return (

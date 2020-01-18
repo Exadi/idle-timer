@@ -1,11 +1,22 @@
 import React, { Component } from "react";
-import TextInput from "Components/FormControls/TextInput";
-import CheckboxInput from "Components/FormControls/CheckboxInput";
 import bell_01 from "assets/bell_01.ogg";
 import { connect } from "react-redux";
 import { AddTimer } from "App";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import Button from "@material-ui/core/Button";
+import { Typography, Link, Box } from "@material-ui/core";
+
+const fullHeight = {
+  height: "100%"
+};
+
+const centered = {
+  textAlign: "center"
+};
 
 class Master {
   constructor(level, unspentPoints) {
@@ -187,123 +198,120 @@ class RivalLevelingTime extends Component {
 
   render() {
     return (
-      <div id="sword-fight-calculator" className="slide-from-right">
-        <h1 className="title is-1 has-text-centered">
-          Sword Fight - Rival Leveling Time
-        </h1>
+      <Box id="sword-fight-calculator" className="slide-from-right">
         <Grid container spacing={3}>
+          <Grid item xs={12} style={centered}>
+            <Typography variant="h4">
+              Sword Fight - Rival Leveling Time
+            </Typography>
+          </Grid>
           {this.state.masters.map((item, index) => (
-            <Grid item xs={12} sm={4}>
-              <Paper>
-                <h2 className="title is-3 has-text-centered">
-                  Master {index + 1}
-                </h2>
-                <TextInput
-                  type="number"
+            <Grid item xs={12} sm={4} key={index}>
+              <Paper style={fullHeight}>
+                <Typography variant="h5">Master {index + 1}</Typography>
+                <TextField
                   id={"master_level_" + index}
-                  label="Level: "
+                  label="Level"
                   value={item.level}
                   onChange={this.handleMasterLevelChange}
                 />
-                <TextInput
-                  type="number"
+                <TextField
                   id={"master_points_" + index}
-                  label="Unspent Points: "
+                  label="Unspent Points"
                   value={item.unspentPoints}
                   onChange={this.handleMasterPointsChange}
-                  help="Ignore if not using Inspiring Leader"
+                  helperText="Ignore if not using Inspiring Leader"
                 />
               </Paper>
             </Grid>
           ))}
         </Grid>
 
-        <div className="tile is-ancestor">
-          <div className="tile is-parent">
-            <div className="tile is-child box">
-              <h2 className="title is-3 has-text-centered">Rival Master</h2>
-              <TextInput
-                type="number"
+        <Grid container spacing={3}>
+          <Grid item xs={12} sm={6}>
+            <Paper style={fullHeight}>
+              <Typography variant="h5">Rival Master</Typography>
+              <TextField
                 id="rival_master_level"
                 label="Level: "
                 value={this.state.rivalMasterLevel}
                 onChange={this.handleRivalMasterLevelChange}
               />
-              <TextInput
-                type="number"
+              <TextField
                 id="rival_master_target_level"
                 label="Target Level: "
                 value={this.state.rivalMasterTargetLevel}
                 onChange={this.handleRivalMasterTargetLevelChange}
               />
-              <CheckboxInput
-                id="rival_master_greater_ambition"
-                type="checkbox"
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="rival_master_greater_ambition"
+                    type="checkbox"
+                    checked={this.state.rivalMasterGreaterAmbition}
+                    onChange={this.handleRivalMasterGreaterAmbitionChange}
+                  />
+                }
                 label={
                   <>
                     Co-Founder with{" "}
                     <span
-                      class="tooltip"
+                      className="tooltip"
                       data-tooltip="Unlocks upon completing 10 Co-Founder special trainings."
                     >
                       Greater Ambition
                     </span>
                   </>
                 }
-                checked={this.state.rivalMasterGreaterAmbition}
-                onChange={this.handleRivalMasterGreaterAmbitionChange}
-              />
-            </div>
-          </div>
-          <div className="tile is-parent">
-            <div className="tile is-child box">
-              <h2 className="title is-3 has-text-centered">Inspiring Leader</h2>
-              <h6 className="subtitle is-6 has-text-centered">
-                (Xander's 4th Skill)
-              </h6>
-              <TextInput
-                type="number"
+              ></FormControlLabel>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper style={fullHeight}>
+              <Typography variant="h5">Inspiring Leader</Typography>
+              <Typography variant="subtitle1">(Xander's 4th Skill)</Typography>
+              <TextField
                 id="inspiring_leader_level"
                 label="Level: "
                 value={this.state.inspiringLeaderLevel}
                 onChange={this.handleInspiringLeaderLevelChange}
               />
-              <CheckboxInput
-                id="inspiring_leader_greater"
+              <FormControlLabel
+                control={
+                  <Checkbox
+                    id="inspiring_leader_greater"
+                    checked={this.state.greaterInspiringLeader}
+                    onChange={this.handleGreaterInspiringLeaderChange}
+                  />
+                }
                 label={
                   <>
-                    <span
-                      class="tooltip has-tooltip-right-mobile"
-                      data-tooltip="Unlocks upon completing all 15 Co-Founder special trainings."
-                    >
-                      Greater Inspiring Leader
-                    </span>{" "}
-                    unlocked
+                    <Typography>Greater Inspiring Leader unlocked</Typography>
                   </>
                 }
-                checked={this.state.greaterInspiringLeader}
-                onChange={this.handleGreaterInspiringLeaderChange}
               />
-            </div>
-          </div>
-        </div>
-        <div className="has-text-centered">
-          <input
-            type="button"
-            className="button is-primary"
-            onClick={this.calculate}
-            value="Calculate"
-          ></input>
-          <br />
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://www.kongregate.com/games/tovrick/sword-fight"
-          >
-            Play Sword Fight on Kongregate
-          </a>
-        </div>
-      </div>
+            </Paper>
+          </Grid>
+          <Grid item xs={12} style={centered}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={this.calculate}
+            >
+              Calculate
+            </Button>
+            <br />
+            <br />
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://www.kongregate.com/games/tovrick/sword-fight"
+            >
+              Play Sword Fight on Kongregate
+            </Link>
+          </Grid>
+        </Grid>
+      </Box>
     );
   }
 }

@@ -1,9 +1,17 @@
 import React, { Component } from "react";
-import "./Timer.scss";
 import { removeTimer } from "actions";
 import { connect } from "react-redux";
 import notifIcon from "assets/notif.png";
 import { UpdateTimer } from "App.js";
+
+import { IconButton } from "@material-ui/core";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import PauseIcon from "@material-ui/icons/Pause";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import NotificationsIcon from "@material-ui/icons/Notifications";
+import NotificationsOffIcon from "@material-ui/icons/NotificationsOff";
+import VolumeUpIcon from "@material-ui/icons/VolumeUp";
+import VolumeOffIcon from "@material-ui/icons/VolumeOff";
 
 class Timer extends Component {
   constructor(props) {
@@ -189,50 +197,58 @@ class Timer extends Component {
           {seconds < 10 ? "0" + seconds : seconds}
         </div>
         <div className="timer-controls">
-          <button className="button has-text-danger" onClick={this.restart}>
-            <i className="fas fa-fast-backward"></i>
-          </button>
+          <IconButton
+            color="secondary"
+            onClick={this.restart}
+            aria-label="restart"
+          >
+            <SkipPreviousIcon />
+          </IconButton>
           {this.state.isRunning ? (
-            <button className="button has-text-warning" onClick={this.pause}>
-              <i className="fas fa-pause"></i>
-            </button>
+            <IconButton color="primary" onClick={this.pause} aria-label="pause">
+              <PauseIcon />
+            </IconButton>
           ) : (
-            <button className="button has-text-primary" onClick={this.start}>
-              <i className="fas fa-play"></i>
-            </button>
+            <IconButton color="primary" onClick={this.start} aria-label="start">
+              <PlayArrowIcon />
+            </IconButton>
           )}
         </div>
         <div className="timer-controls">
           {this.state.playSound ? (
-            <button
-              className="button has-text-primary"
+            <IconButton
+              color="primary"
               onClick={this.handlePlaySoundChange}
+              aria-label="disable-sound"
             >
-              <i className="fas fa-volume-up"></i>
-            </button>
+              <VolumeUpIcon />
+            </IconButton>
           ) : (
-            <button
-              className="button has-text-primary"
+            <IconButton
+              color="primary"
               onClick={this.handlePlaySoundChange}
+              aria-label="enable-sound"
             >
-              <i className="fas fa-volume-mute"></i>
-            </button>
+              <VolumeOffIcon />
+            </IconButton>
           )}
 
           {this.state.sendNotification ? (
-            <button
-              className="button has-text-primary"
+            <IconButton
+              color="primary"
               onClick={this.handleSendNotificationChange}
+              aria-label="disable-notification"
             >
-              <i className="fas fa-bell"></i>
-            </button>
+              <NotificationsIcon />
+            </IconButton>
           ) : (
-            <button
-              className="button has-text-primary"
+            <IconButton
+              color="primary"
               onClick={this.handleSendNotificationChange}
+              aria-label="enable-notification"
             >
-              <i className="fas fa-bell-slash"></i>
-            </button>
+              <NotificationsOffIcon />
+            </IconButton>
           )}
         </div>
       </div>

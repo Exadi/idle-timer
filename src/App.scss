@@ -5,16 +5,6 @@ $info: #9fc2cc;
 @import "@fortawesome/fontawesome-free/scss/solid.scss";
 @import "@fortawesome/fontawesome-free/scss/brands.scss";
 
-html {
-  font-size: calc(0.7em + 1vw);
-}
-
-@media screen and (min-width: 50em) {
-  html {
-    font-size: 1.2em;
-  }
-}
-
 .slide-from-right {
   animation: slideAnim 0.3s ease-in-out;
   position: relative;
@@ -27,31 +17,4 @@ html {
   100% {
     left: 0;
   }
-}
-
-.navbar-burger {
-  background-color: $primary;
-  border: none;
-}
-
-.timers {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-}
-
-.timers h1 {
-  width: fit-content;
-  margin: 0 auto;
-  box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.5);
-  border-bottom: none;
-  background-color: $primary;
-  color: "#ffffff";
-  padding: 5px;
-  margin-bottom: 0 !important;
-  border-radius: 20px 20px 0 0;
-}
-
-.main-section {
-  margin-bottom: 10vh;
 }

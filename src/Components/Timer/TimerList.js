@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import Timer from "./Timer";
 import notifIcon from "assets/notif.png";
-import "./TimerList.scss";
 
 function TimerList() {
   const timers = useSelector(state => state.timers);
