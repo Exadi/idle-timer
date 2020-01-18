@@ -7,11 +7,6 @@ import "./TimerList.scss";
 function TimerList() {
   const timers = useSelector(state => state.timers);
 
-  //notification title
-  const [title, setTitle] = useState("");
-  const [ignore, setIgnore] = useState(false);
-  const [options, setOptions] = useState({});
-
   const [page, setPage] = useState(0);
   const itemsPerPage = 3;
 
@@ -32,7 +27,7 @@ function TimerList() {
     const now = Date.now();
 
     const title = "Idle Timer";
-    const body = "The timer \"" + name + "\" is complete!";
+    const body = 'The timer "' + name + '" is complete!';
     const tag = now;
     const icon = notifIcon;
 
@@ -46,7 +41,8 @@ function TimerList() {
       dir: "ltr"
     };
 
-    var n = new Notification(title, options);
+    //doing it this way because it would be unused if I assigned it to a variable
+    new Notification(title, options);
   };
 
   return (
@@ -84,7 +80,8 @@ function TimerList() {
                   ? true
                   : false
               }
-              key={i}
+              /*key must be unique and not change when a timer is deleted or weird stuff happens. e.g. taking the time remaining of the timer that had that key before*/
+              key={timer.name}
               name={timer.name}
               seconds={timer.seconds}
               sound={timer.sound}
@@ -93,9 +90,8 @@ function TimerList() {
           );
         })
       ) : (
-          <div>There are no timers yet.</div>
-        )}
-
+        <div>There are no timers yet.</div>
+      )}
     </div>
   );
 }

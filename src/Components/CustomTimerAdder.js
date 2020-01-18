@@ -7,12 +7,14 @@ import { AddTimer } from "../App";
 function CustomTimerAdder() {
   const timers = useSelector(state => state.timers);
   const [name, setName] = useState("");
+  const [hours, setHours] = useState(0);
+  const [minutes, setMinutes] = useState(0);
   const [seconds, setSeconds] = useState(0);
   const dispatch = useDispatch();
 
   const addButton = () => {
     let timerName = name;
-    let timerSeconds = seconds;
+    let timerSeconds = hours * 3600 + minutes * 60 + seconds;
 
     AddTimer(timers, dispatch, timerName, timerSeconds, bell_01);
   };
@@ -28,6 +30,16 @@ function CustomTimerAdder() {
         label="Name: "
         value={name}
         onChange={e => setName(e.target.value)}
+      ></TextInput>
+      <TextInput
+        label="Hours: "
+        value={hours}
+        onChange={e => setHours(parseInt(e.target.value) || 0)}
+      ></TextInput>
+      <TextInput
+        label="Minutes: "
+        value={minutes}
+        onChange={e => setMinutes(parseInt(e.target.value) || 0)}
       ></TextInput>
       <TextInput
         label="Seconds: "

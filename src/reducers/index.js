@@ -10,9 +10,18 @@ const timers = (state = [], action) => {
       return state;
   }
 };
+const notifications = (state = true, action) => {
+  switch (action.type) {
+    case "TOGGLE_DEFAULT_NOTIFICATIONS":
+      return !state;
+    default:
+      return state;
+  }
+};
 
 const allReducers = combineReducers({
-  timers
+  timers,
+  notifications
 });
 
 export default allReducers;

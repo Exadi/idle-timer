@@ -11,8 +11,9 @@ class Timer extends Component {
       seconds: this.props.seconds,
       isRunning: this.props.isRunning || false,
       playSound: true,
-      sendNotification: false,
-      hasFinished: false
+      sendNotification: this.props.notifications,
+      hasFinished: false,
+      endTime: new Date(Date.now())
     };
     this.tick = this.tick.bind(this);
     this.start = this.start.bind(this);
@@ -36,7 +37,7 @@ class Timer extends Component {
 
   handleSendNotificationChange(event) {
     let sendNotification = !this.state.sendNotification;
-    if (sendNotification){
+    if (sendNotification) {
       this.notifyMe();
     }
     this.setState({
@@ -45,7 +46,9 @@ class Timer extends Component {
   }
 
   tick() {
-    let seconds = this.state.seconds - 1;
+    //check the difference between the endTime and now and set remaining seconds to that to keep it from falling behind
+    let milliseconds = this.state.endTime - Date.now();
+    let seconds = Math.round(milliseconds / 1000);
 
     if (seconds <= 0) {
       seconds = 0.0;
@@ -61,10 +64,16 @@ class Timer extends Component {
     }
   }
   start() {
+    /*FIXME Low Priority: because timer interval is 1 second, pausing and restarting before that does not progress the timer at all. 
+    I doubt anyone would do that enough to make a significant difference. */
+    //seconds must be converted to milliseconds to add to Date.now()
+    let endTime = new Date(Date.now() + this.state.seconds * 1000);
     this.intervalHandle = setInterval(this.tick, 1000);
+
     this.setState({
       isRunning: true,
-      hasFinished: false
+      hasFinished: false,
+      endTime
     });
   }
   pause() {
@@ -93,24 +102,28 @@ class Timer extends Component {
     }
   }
 
-  
+  componentWillUnmount() {
+    clearInterval(this.intervalHandle);
+  }
 
   notifyMe() {
+    //from https://developer.mozilla.org/en-US/docs/Web/API/Notification/permission
     // Let's check if the browser supports notifications
     if (!("Notification" in window)) {
       alert("This browser does not support desktop notification");
     }
-  
+
     // Let's check whether notification permissions have alredy been granted
     else if (Notification.permission === "granted") {
-      // If it's okay let's not create a notification
-      //var notification = new Notification("Hi there!");
       //TODO maybe add an option later for testing notifications when permission has already been granted.
     }
-  
+
     // Otherwise, we need to ask the user for permission
-    else if (Notification.permission !== 'denied' || Notification.permission === "default") {
-      Notification.requestPermission(function (permission) {
+    else if (
+      Notification.permission !== "denied" ||
+      Notification.permission === "default"
+    ) {
+      Notification.requestPermission(function(permission) {
         // If the user accepts, let's create a notification
         if (permission === "granted") {
           const options = {
@@ -119,12 +132,12 @@ class Timer extends Component {
             lang: "en",
             dir: "ltr"
           };
-          var notification = new Notification("Hi there!", options);
+          new Notification("Hi there!", options);
         }
       });
     }
-  
-    // At last, if the user has denied notifications, and you 
+
+    // At last, if the user has denied notifications, and you
     // want to be respectful there is no need to bother them any more.
   }
 
@@ -155,6 +168,13 @@ class Timer extends Component {
         <div className="is-size-4">
           {hours}:{minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
+          <br />
+          {this.state.endTime.getHours()}:{this.state.endTime.getMinutes()}:
+          {this.state.endTime.getSeconds() < 10
+            ? "0" + this.state.endTime.getSeconds()
+            : this.state.endTime.getSeconds()}
+          <br />
+          {this.state.endTime.getTime()}
         </div>
         <div className="timer-controls">
           <button className="button has-text-danger" onClick={this.restart}>
@@ -208,4 +228,8 @@ class Timer extends Component {
   }
 }
 
-export default connect()(Timer);
+const mapStateToProps = state => ({
+  notifications: state.notifications
+});
+
+export default connect(mapStateToProps)(Timer);
