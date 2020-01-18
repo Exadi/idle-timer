@@ -8,7 +8,7 @@ import Navbar from "./Components/Navbar";
 import IdlingToRuleTheGods from "./Components/Calculators/ITRTG/IdlingToRuleTheGods";
 import TimerList from "./Components/Timer/TimerList";
 import CustomTimerAdder from "./Components/CustomTimerAdder";
-import { addTimer } from "./actions";
+import { addTimer, updateTimer } from "./actions";
 import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "theme.js";
 import Container from "@material-ui/core/Container";
@@ -49,10 +49,15 @@ export function AddTimer(timers, dispatch, name, seconds, sound) {
       addTimer({
         name,
         seconds,
-        sound
+        sound,
+        isRunning: false
       })
     );
   }
+}
+
+export function UpdateTimer(dispatch, timer) {
+  dispatch(updateTimer(timer));
 }
 
 function getModalStyle() {
@@ -72,15 +77,15 @@ function App() {
   const [timersOpen, setTimersOpen] = React.useState(false);
   const [modalStyle] = React.useState(getModalStyle);
 
+  let countNotRunning = timers.filter(timer => !timer.isRunning).length;
   let buttons = [
     <IconButton
       key="timersButton"
       color="inherit"
       onClick={() => setTimersOpen(true)}
     >
-      <Badge badgeContent={timers.length} color="secondary">
+      <Badge badgeContent={countNotRunning} color="secondary">
         <TimerIcon />
-        {/*TODO this would probably be better if it showed the number of timers that aren't running. */}
       </Badge>
     </IconButton>
   ];

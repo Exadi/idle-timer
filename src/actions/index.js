@@ -12,6 +12,13 @@ export const removeTimer = timer => {
   };
 };
 
+export const updateTimer = timer => {
+  return {
+    type: "UPDATE_TIMER",
+    payload: timer
+  };
+};
+
 export const toggleDefaultNotifications = () => {
   return {
     type: "TOGGLE_DEFAULT_NOTIFICATIONS"

@@ -3,6 +3,7 @@ import "./Timer.scss";
 import { removeTimer } from "actions";
 import { connect } from "react-redux";
 import notifIcon from "assets/notif.png";
+import { UpdateTimer } from "App.js";
 
 class Timer extends Component {
   constructor(props) {
@@ -89,8 +90,7 @@ class Timer extends Component {
       isRunning: false
     });
   }
-
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     if (this.props.seconds !== prevProps.seconds) {
       this.setState({
         seconds: this.props.seconds,
@@ -100,8 +100,27 @@ class Timer extends Component {
         clearInterval(this.intervalHandle);
       }
     }
+
+    if (this.state.isRunning !== prevState.isRunning) {
+      /*if running status changes, the global store is updated so the timer badge can show the timers that aren't running.
+      Does not update the seconds with state.seconds because that would alter the seconds prop and prevent resetting to the original time 
+      (maybe original seconds value should be named differently to avoid confusion...)*/
+      UpdateTimer(this.props.dispatch, {
+        name: this.props.name,
+        seconds: this.props.seconds,
+        sound: this.props.sound,
+        isRunning: this.state.isRunning
+      });
+    }
   }
 
+  componentDidMount() {
+    //if notifications are turned on by default, ask for permission when a timer is created
+    //TODO it will make more sense to ask when they turn that setting on, so move this there
+    if (this.state.sendNotification) {
+      this.notifyMe();
+    }
+  }
   componentWillUnmount() {
     clearInterval(this.intervalHandle);
   }
@@ -168,13 +187,6 @@ class Timer extends Component {
         <div className="is-size-4">
           {hours}:{minutes < 10 ? "0" + minutes : minutes}:
           {seconds < 10 ? "0" + seconds : seconds}
-          <br />
-          {this.state.endTime.getHours()}:{this.state.endTime.getMinutes()}:
-          {this.state.endTime.getSeconds() < 10
-            ? "0" + this.state.endTime.getSeconds()
-            : this.state.endTime.getSeconds()}
-          <br />
-          {this.state.endTime.getTime()}
         </div>
         <div className="timer-controls">
           <button className="button has-text-danger" onClick={this.restart}>
